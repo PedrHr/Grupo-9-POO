@@ -1,17 +1,32 @@
 package Model;
 
-public class Conta {
+import java.math.BigDecimal;
+
+public abstract class Conta {
     private int numeroConta;
-    private double saldoAtual;
-    private float valorDepositado;
-    private float valorRetirado;
-    private String dataDeposito;
-    private String dataRetirada;
+    private BigDecimal saldoAtual;
+    int contadorDeposito = 0;
+    int ListaDeposito = new int[]
+
+    public int getSaldoAutual(){
+        return this.saldoAtual;
+    }
 
 
+    public double depositarValor(double valorDeposito) {
+        if(valorDeposito >= 0) {
+            contadorDeposito++;
+            this.saldoAtual = this.saldoAtual + valorDeposito;
+        }
+    }
 
-    public Conta(int numero, double saldo, double limiteCredito) {
-        this.numero = numero;
-        this.saldo = saldo;
+    public double sacarValor(double valorSacar) {
+        if(valorSacar >= 0) {
+            if(this.saldoAtual >= valorSacar) {
+                this.saldoAtual = this.saldoAtual - valorSacar;
+            }
+        }
+
+
     }
 }
