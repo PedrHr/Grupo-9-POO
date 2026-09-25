@@ -1,5 +1,7 @@
 package View;
 
+import Model.Cliente;
+
 import javax.swing.*;
 
 public class mainConta {

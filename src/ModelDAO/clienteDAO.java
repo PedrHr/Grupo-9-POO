@@ -1,7 +1,6 @@
 package ModelDAO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import ModelDAO.conexaoDAO;
 
 import Model.Cliente;
@@ -11,13 +10,15 @@ public class clienteDAO {
         String sql = "INSERT INTO Cliente (nome, cpf, endereco, email, senha) VALUES (?,?,?,?,?)";
         PreparedStatement stmt = null;
 
+
         try {
             stmt = conexaoDAO.getConexao().prepareStatement(sql);
-            stmt.setString(1, Cliente.getNome());
-            stmt.setString(2, Cliente.getCpf());
-            stmt.setString(3, Cliente.getEndereco());
-            stmt.setString(4, Cliente.getEmail());
-            stmt.setString(5, Cliente.getSenha());
+
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setString(3, cliente.getEndereco());
+            stmt.setString(4, cliente.getEmail());
+            stmt.setString(5, cliente.getSenha());
 
             stmt.execute();
             stmt.close();

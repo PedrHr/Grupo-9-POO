@@ -66,6 +66,7 @@ public class mainLogin extends JFrame {
             }
         });
 
+
         painel.add(btnEntrar);
         painel.add(btnCancelar);
 
@@ -79,6 +80,7 @@ public class mainLogin extends JFrame {
     }
 
     public static void main(String[] args) {
+
 
         new mainLogin();
     }
