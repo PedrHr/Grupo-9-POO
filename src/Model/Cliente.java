@@ -7,8 +7,7 @@ public class Cliente {
     private String email;
     private String senha;
     private Conta conta;
-
-    enderecoCliente endereco;
+    private String endereco;
 
     public Cliente(int idCliente, String nome, String cpf, String email, String senha, Conta conta) {
         this.idCliente = idCliente;
