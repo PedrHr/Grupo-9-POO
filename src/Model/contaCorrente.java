@@ -3,11 +3,12 @@ package Model;
 import java.math.BigDecimal;
 
 public class contaCorrente extends Conta {
-    private BigDecimal limiteCredito;
+    private double limiteCredito;
     private int chaveTransacao;
 
-    public void setLimiteCredito(){
-
-
+    public void setChaveTransacao(int chaveTransacao) {
+        Random random = new Random();
+        this.chaveTransacao = random.nextInt(100);
     }
+
 }

@@ -1,21 +1,11 @@
 package Model;
 
-import java.math.BigDecimal;
-
 public abstract class Conta {
     private int numeroConta;
-    private BigDecimal saldoAtual;
-    int contadorDeposito = 0;
-    int ListaDeposito = new int[]
+    private double saldoAtual;
 
-    public int getSaldoAutual(){
-        return this.saldoAtual;
-    }
-
-
-    public double depositarValor(double valorDeposito) {
+    public double depositarValor(double valorDeposito){
         if(valorDeposito >= 0) {
-            contadorDeposito++;
             this.saldoAtual = this.saldoAtual + valorDeposito;
         }
     }
