@@ -6,7 +6,7 @@ public class mainConta {
     static JFrame interfaceConta = new JFrame("Conta");
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {});
+        SwingUtilities.invokeLater(() -> {})      ;
 
     }
 }

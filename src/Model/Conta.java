@@ -1,9 +1,14 @@
 package Model;
 
 public class Conta {
-    private int numero;
-    private double saldo;
-    private double limiteCredito;
+    private int numeroConta;
+    private double saldoAtual;
+    private float valorDepositado;
+    private float valorRetirado;
+    private String dataDeposito;
+    private String dataRetirada;
+
+
 
     public Conta(int numero, double saldo, double limiteCredito) {
         this.numero = numero;
