@@ -1,0 +1,43 @@
+create database contaBancaria;
+
+use contaBancaria;
+
+create table Cliente (
+idCliente int primary key auto_increment,
+nome varchar(45) not null,
+cpf varchar(45),
+endereco varchar(45),
+email varchar(45) unique not null,
+senha varchar(45) unique not null
+);
+
+create table Conta {
+numeroConta int primary key auto_increment,
+saldoAtual decimal (10,2),
+idcliente_cliente int,
+foreign key idcliente_cliente references Cliente(idCliente)
+);
+
+create table contaCorrente(
+idContaCorrente int primary key,
+limiteCredito int,
+chaveTransacao int unique,
+foreign key (idContaCorrente) references Conta(numeroConta)
+);
+
+create table contaPoupanca(
+idContaPoupanca int primary key,
+taxaRendimento decimal,
+foreign key (idContaPoupanca) references Conta(numeroConta)
+);
+
+create table Transacao(
+idTransacao int primary key,
+valor decimal (10,2) not null,
+contaOrigem int not null,
+contaDestino int not null,
+dataTransacao DATETIME not null default current_timestamp(3),
+foreign key (contaOrigem) references contaCorrente(idContaCorrente),
+foreign key (contaDestino) references contaCorrente(idContaCorrente)
+);
+
