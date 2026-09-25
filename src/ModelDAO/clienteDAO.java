@@ -13,11 +13,11 @@ public class clienteDAO {
 
         try {
             stmt = conexaoDAO.getConexao().prepareStatement(sql);
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getEndereco());
-            stmt.setString(4, usuario.getEmail());
-            stmt.setString(5, usuario.getSenha());
+            stmt.setString(1, Cliente.getNome());
+            stmt.setString(2, Cliente.getCpf());
+            stmt.setString(3, Cliente.getEndereco());
+            stmt.setString(4, Cliente.getEmail());
+            stmt.setString(5, Cliente.getSenha());
 
             stmt.execute();
             stmt.close();
