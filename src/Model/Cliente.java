@@ -8,6 +8,8 @@ public class Cliente {
     private String senha;
     private Conta conta;
 
+    enderecoCliente endereco;
+
     public Cliente(int idCliente, String nome, String cpf, String email, String senha, Conta conta) {
         this.idCliente = idCliente;
         this.nome = nome;
