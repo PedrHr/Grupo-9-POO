@@ -6,14 +6,15 @@ public class clienteController {
     private clienteDAO clienteDAO;
 
     public clienteController() {
-        clienteDAO clienteDAO = new clienteDAO;
+        clienteDAO = new clienteDAO();
     }
 
     public void inserirCliente(Cliente cliente) {
-        clienteDAO.inserirCliente(cliente);
+       clienteDAO.inserirCliente(cliente);
     }
 
-    public void buscarCliente(String emailCliente, String senhaCliente){
-        clienteDAO.buscarCliente(emailCliente, senhaCliente);
+    public Cliente buscarCliente(String emailCliente, String senhaCliente){
+     return clienteDAO.buscarCliente(emailCliente, senhaCliente);
+
     }
 }

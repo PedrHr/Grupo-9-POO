@@ -4,6 +4,7 @@ import Model.Cliente;
 import Controller.clienteController;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
 
 public class mainLogin extends JFrame {
 
@@ -61,12 +62,14 @@ public class mainLogin extends JFrame {
             } else {
 
                 clienteController buscarCliente = new clienteController();
-                buscarCliente.buscarCliente(emailLogin, senhaLogin);
+
+                Cliente cliente = buscarCliente.buscarCliente(emailLogin, senhaLogin);
 
                 JOptionPane.showMessageDialog(
-                    this,
-                    "E-mail ou senha incorretos!"
+                    this, "Usuario: "+cliente.getNome() +" Logado com sucesso!"
+
                 );
+
             }
         });
 

@@ -4,11 +4,11 @@ public class Cliente {
     private int idCliente;
     private String nome;
     private String cpf;
-    private String email;
     private String endereco;
+    private String email;
     private String senha;
 
-    public Cliente(String nome, String cpf, String email, String endereco, String senha ){
+    public Cliente(String nome, String cpf, String endereco, String email, String senha ){
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -47,6 +47,7 @@ public class Cliente {
     }
 
     public String getEmail() {
+
         return email;
     }
 

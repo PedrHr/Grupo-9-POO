@@ -31,8 +31,8 @@ public class clienteDAO {
         }
     }
 
-    public void Cliente buscarCliente(String email, String senha){
-        String sql = "SELECT *gt FROM cliente WHERE email = ? AND senha = ? ";
+    public Cliente buscarCliente(String email, String senha){
+        String sql = "SELECT * FROM CLIENTE WHERE email = ? AND senha = ? ";
         PreparedStatement stmt = null;
 
 
@@ -44,7 +44,6 @@ public class clienteDAO {
             stmt.execute();
             ResultSet result = stmt.executeQuery();
 
-            stmt.close();
 
             if(result.next()) {
             System.out.println("Cliente encontrado");
@@ -57,14 +56,18 @@ public class clienteDAO {
              result.getString("senha")
              );
 
-            cliente.setIdCliente(result.getInt("id"));
+            cliente.setIdCliente(result.getInt("idCliente"));
 
+            stmt.close();
             return cliente;
 
+            }else{
+                System.out.println("Cliente nao encontrado");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("tudo errado");
         }
+        return null;
     }
 }
