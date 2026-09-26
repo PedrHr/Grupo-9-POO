@@ -6,7 +6,17 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String email;
+    private String endereco;
     private String senha;
+
+    public Cliente(String nome, String cpf, String email, String endereco, String senha){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.endereco = endereco;
+        this.senha = senha;
+    }
+
 
     public  int getIdCliente()
     {
@@ -50,6 +60,15 @@ public class Cliente {
     public void setSenha(String senha) {
 
         this.senha = senha;
+    }
+    public String getEndereco() {
+
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+
+        this.endereco = endereco;
     }
 
 

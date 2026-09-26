@@ -1,15 +1,23 @@
 package View;
 
+import Model.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class mainRegistro extends JFrame {
 
-    private JTextField nome;
-    private JTextField cpf;
-    private JTextField telefone;
-    private JTextField email;
-    private JPasswordField senha;
+    static private JTextField nome;
+    static private JTextField cpf;
+    static private JTextField endereco;
+    static private JTextField email;
+    static private JPasswordField senha;
+    static private String nomeCliente;
+    static private String cpfCliente;
+    static private String enderecoCliente;
+    static private String emailCliente ;
+    static private String senhaCliente;
+
 
     // Construtor
     public mainRegistro() {
@@ -31,9 +39,9 @@ public class mainRegistro extends JFrame {
         JLabel labelCpf = new JLabel("CPF:");
         cpf = new JTextField(16);
 
-        // TELEFONE
-        JLabel labelTelefone = new JLabel("Telefone:");
-        telefone = new JTextField(16);
+        // ENDEREÇO
+        JLabel labelEndereco = new JLabel("Endereço:");
+        endereco = new JTextField(16);
 
         // EMAIL
         JLabel labelEmail = new JLabel("E-mail:");
@@ -50,8 +58,8 @@ public class mainRegistro extends JFrame {
         painel.add(labelCpf);
         painel.add(cpf);
 
-        painel.add(labelTelefone);
-        painel.add(telefone);
+        painel.add(labelEndereco);
+        painel.add(endereco);
 
         painel.add(labelEmail);
         painel.add(email);
@@ -63,9 +71,19 @@ public class mainRegistro extends JFrame {
         JButton btnCadastrar = new JButton("Cadastrar");
         JButton btnCancelar = new JButton("Cancelar");
 
+
         btnCadastrar.addActionListener(e -> {
 
             String nomeCliente = nome.getText();
+            String cpfCliente = cpf.getText();
+            String enderecoCliente = endereco.getText();
+            String emailCliente = email.getText();
+            String senhaCliente = new String(senha.getPassword());
+
+            public void cadastrarCliente(){
+
+            }
+
 
             if (nomeCliente.trim().isEmpty()) {
 
@@ -94,10 +112,16 @@ public class mainRegistro extends JFrame {
         setLocationRelativeTo(null);
 
         setVisible(true);
-    }
 
+
+    }
     public static void main(String[] args) {
 
         new mainRegistro();
+        Cliente cliente = new Cliente();
+
+
     }
+
+
 }

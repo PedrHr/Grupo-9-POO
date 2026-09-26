@@ -1,5 +1,7 @@
 package View;
 
+import Model.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -48,6 +50,8 @@ public class mainLogin extends JFrame {
             String emailLogin = email.getText();
 
             String senhaLogin = new String(senha.getPassword());
+
+
 
             if (emailLogin.equals("teste@gmail.com") &&
                 senhaLogin.equals("123456")) {
