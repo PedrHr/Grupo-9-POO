@@ -12,13 +12,15 @@ public class conexaoDAO {
     public static Connection getConexao() {
         try {
             if (conn == null) {
-                conn = DriverManager.getConnection(url, user,  password);
+                conn = DriverManager.getConnection(url, user, password);
+                System.out.println("tudo certo");
                 return conn;
             } else {
                 return conn;
             }
         } catch (SQLException excecao){
             excecao.printStackTrace();
+            System.out.println("tudo errado");
             return null;
         }
 

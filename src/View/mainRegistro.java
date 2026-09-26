@@ -1,6 +1,7 @@
 package View;
 
 import Model.Cliente;
+import ModelDAO.clienteDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +13,6 @@ public class mainRegistro extends JFrame {
     static private JTextField endereco;
     static private JTextField email;
     static private JPasswordField senha;
-    static private String nomeCliente;
-    static private String cpfCliente;
-    static private String enderecoCliente;
-    static private String emailCliente ;
-    static private String senhaCliente;
 
 
     // Construtor
@@ -74,15 +70,11 @@ public class mainRegistro extends JFrame {
 
         btnCadastrar.addActionListener(e -> {
 
-            String nomeCliente = nome.getText();
-            String cpfCliente = cpf.getText();
-            String enderecoCliente = endereco.getText();
-            String emailCliente = email.getText();
-            String senhaCliente = new String(senha.getPassword());
-
-            public void cadastrarCliente(){
-
-            }
+                    String nomeCliente = nome.getText();
+                    String cpfCliente = cpf.getText();
+                    String enderecoCliente = endereco.getText();
+                    String emailCliente = email.getText();
+                    String senhaCliente = new String(senha.getPassword());
 
 
             if (nomeCliente.trim().isEmpty()) {
@@ -91,10 +83,15 @@ public class mainRegistro extends JFrame {
 
             } else {
 
+                Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
+                clienteDAO inserir = new clienteDAO();
+                inserir.inserirCliente(cliente);
+
                 JOptionPane.showMessageDialog(
                     this,
                     "Cliente " + nomeCliente + " cadastrado com sucesso!"
                 );
+
             }
         });
 
@@ -118,7 +115,8 @@ public class mainRegistro extends JFrame {
     public static void main(String[] args) {
 
         new mainRegistro();
-        Cliente cliente = new Cliente();
+
+
 
 
     }

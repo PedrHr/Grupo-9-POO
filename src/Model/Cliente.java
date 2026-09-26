@@ -1,5 +1,4 @@
 package Model;
-import ModelDAO.clienteDAO;
 
 public class Cliente {
     private int idCliente;
@@ -9,7 +8,7 @@ public class Cliente {
     private String endereco;
     private String senha;
 
-    public Cliente(String nome, String cpf, String email, String endereco, String senha){
+    public Cliente(String nome, String cpf, String email, String endereco, String senha ){
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
