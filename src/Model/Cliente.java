@@ -22,6 +22,10 @@ public class Cliente {
         return idCliente;
     }
 
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
     public  String getNome() {
 
         return nome;

@@ -1,8 +1,7 @@
 package View;
 
 import Model.Cliente;
-import ModelDAO.clienteDAO;
-
+import Controller.clienteController;
 import javax.swing.*;
 import java.awt.*;
 
@@ -84,8 +83,8 @@ public class mainRegistro extends JFrame {
             } else {
 
                 Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
-                clienteDAO inserir = new clienteDAO();
-                inserir.inserirCliente(cliente);
+                clienteController cadastrarCliente = new clienteController();
+                cadastrarCliente.inserirCliente(cliente);
 
                 JOptionPane.showMessageDialog(
                     this,

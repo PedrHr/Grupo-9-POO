@@ -1,7 +1,7 @@
 package View;
 
 import Model.Cliente;
-
+import Controller.clienteController;
 import javax.swing.*;
 import java.awt.*;
 
@@ -49,19 +49,19 @@ public class mainLogin extends JFrame {
 
             String emailLogin = email.getText();
 
+
             String senhaLogin = new String(senha.getPassword());
-
-
-
-            if (emailLogin.equals("teste@gmail.com") &&
-                senhaLogin.equals("123456")) {
+            if (emailLogin.trim().isEmpty() || senhaLogin.trim().isEmpty()) {
 
                 JOptionPane.showMessageDialog(
                     this,
-                    "Login realizado com sucesso!"
+                    "Preencha os devidos campos para realizar o login"
                 );
 
             } else {
+
+                clienteController buscarCliente = new clienteController();
+                buscarCliente.buscarCliente(emailLogin, senhaLogin);
 
                 JOptionPane.showMessageDialog(
                     this,
