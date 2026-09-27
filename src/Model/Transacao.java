@@ -1,23 +1,25 @@
 package Model;
 
+import java.time.LocalDateTime;
+
 public class Transacao {
     private int idTransacao;
-    private int valor;
+    private double valor;
     private int contaOrigem;
     private int contaDestino;
-    private int dataTransacao;
+    private LocalDateTime dataTransacao;
 
-    public Transacao() {
+    public Transacao(double valorTransacao, int contaOrigem, int contaDesitno, LocalDateTime dataTransacao) {
         this.valor = valor;
-        this.contaOrigem = contaOrigem;
+        this.contaOrigem = this.contaOrigem;
         this.contaDestino = contaDestino;
-        this.dataTransacao = dataTransacao;
+        this.dataTransacao = this.dataTransacao;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
-    public void getValor(int valor) {
+    public void getValor(double valor) {
         this.valor = valor;
     }
     public void setContaOrigem(int contaOrigem) {
@@ -32,10 +34,10 @@ public class Transacao {
     public void getContaDestino(int contaDestino) {
         this.contaDestino = contaDestino;
     }
-    public void setDataTransacao(int dataTransacao) {
+    public void setDataTransacao(LocalDateTime dataTransacao) {
         this.dataTransacao = dataTransacao;
     }
-    public void getDataTransacao(int dataTransacao) {
+    public void getDataTransacao(LocalDateTime dataTransacao) {
         this.dataTransacao = dataTransacao;
     }
 

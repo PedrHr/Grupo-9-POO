@@ -4,14 +4,15 @@ import Model.Cliente;
 import Controller.clienteController;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.ResultSet;
 
-public class mainLogin extends JFrame {
+import Controller.exceptionsController;
+
+public class panelLogin extends JFrame {
 
     private JTextField email;
     private JPasswordField senha;
 
-    public mainLogin() {
+    public panelLogin() {
 
         setTitle("Login");
 
@@ -19,9 +20,7 @@ public class mainLogin extends JFrame {
 
         JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
 
-        painel.setBorder(
-            BorderFactory.createEmptyBorder(20, 20, 20, 20)
-        );
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // EMAIL
         JLabel labelEmail = new JLabel("E-mail:");
@@ -45,30 +44,26 @@ public class mainLogin extends JFrame {
         // BOTÃO CANCELAR
         btnCancelar.addActionListener(e -> dispose());
 
-        // BOTÃO ENTRAR
+        // AÇÃO DO BOTÃO ENTRAR
         btnEntrar.addActionListener(e -> {
 
+            // RESGATANDO O QUE FOI DIGITADO NOS CAMPOS
             String emailLogin = email.getText();
-
-
             String senhaLogin = new String(senha.getPassword());
+
+            // VERFIRIFICANDO O PREENCHIMENTO DOS CAMPOS
             if (emailLogin.trim().isEmpty() || senhaLogin.trim().isEmpty()) {
 
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Preencha os devidos campos para realizar o login"
-                );
+                // MESSAGEM EMITIDA CASO O OCORRA O NÃO PREENCHIMENTO DE QUALQUER DOS CAMPOS
+                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
 
             } else {
 
+                // CHAMANDO O CONTROLLER PARA ACESSAR O BANCO DE DADOS
                 clienteController buscarCliente = new clienteController();
-
                 Cliente cliente = buscarCliente.buscarCliente(emailLogin, senhaLogin);
 
-                JOptionPane.showMessageDialog(
-                    this, "Usuario: "+cliente.getNome() +" Logado com sucesso!"
-
-                );
+                JOptionPane.showMessageDialog(this, "Usuario: "+cliente.getNome() +" Logado com sucesso!");
 
             }
         });
@@ -88,7 +83,6 @@ public class mainLogin extends JFrame {
 
     public static void main(String[] args) {
 
-
-        new mainLogin();
+        new panelLogin();
     }
 }

@@ -1,10 +1,8 @@
 package View;
 
-import Model.Cliente;
-
 import javax.swing.*;
 
-public class mainConta {
+public class panelConta {
     static JFrame interfaceConta = new JFrame("Conta");
 
     public static void main(String[] args) {

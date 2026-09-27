@@ -1,11 +1,12 @@
 package View;
 
+import Controller.exceptionsController;
 import Model.Cliente;
 import Controller.clienteController;
 import javax.swing.*;
 import java.awt.*;
 
-public class mainRegistro extends JFrame {
+public class panelRegistro extends JFrame {
 
     static private JTextField nome;
     static private JTextField cpf;
@@ -15,7 +16,7 @@ public class mainRegistro extends JFrame {
 
 
     // Construtor
-    public mainRegistro() {
+    public panelRegistro() {
 
         setTitle("Registro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,13 +76,15 @@ public class mainRegistro extends JFrame {
                     String emailCliente = email.getText();
                     String senhaCliente = new String(senha.getPassword());
 
+                // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
+            if (nomeCliente.trim().isEmpty() || cpfCliente.trim().isEmpty() || enderecoCliente.trim().isEmpty() || emailCliente.trim().isEmpty() || senhaCliente.trim().isEmpty()) {
 
-            if (nomeCliente.trim().isEmpty()) {
-
-                JOptionPane.showMessageDialog(this, "Preencha o nome!");
+                // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
+                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
 
             } else {
 
+                // CRIANDO UM NOVO OBJETO CLIENTE E CHAMANDO O CONTROLLER PARA CADASTRA-LO
                 Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
                 clienteController cadastrarCliente = new clienteController();
                 cadastrarCliente.inserirCliente(cliente);
@@ -113,7 +116,7 @@ public class mainRegistro extends JFrame {
     }
     public static void main(String[] args) {
 
-        new mainRegistro();
+        new panelRegistro();
 
 
 

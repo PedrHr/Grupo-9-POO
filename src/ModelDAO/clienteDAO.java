@@ -7,7 +7,7 @@ import ModelDAO.conexaoDAO;
 import Model.Cliente;
 
 public class clienteDAO {
-    public void inserirCliente(Cliente cliente){
+    public String inserirCliente(Cliente cliente){
 
         String sql = "INSERT INTO CLIENTE (NOME, CPF, ENDERECO, EMAIL, SENHA) VALUES (?,?,?,?,?)";
         PreparedStatement stmt = null;
@@ -21,13 +21,13 @@ public class clienteDAO {
             stmt.setString(3, cliente.getEndereco());
             stmt.setString(4, cliente.getEmail());
             stmt.setString(5, cliente.getSenha());
-            System.out.println("tudo certo");
-
             stmt.execute();
+
+
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("tudo errado");
+            return System.out.println("tudo errado");
         }
     }
 
