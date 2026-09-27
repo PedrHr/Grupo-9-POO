@@ -9,11 +9,9 @@ public class Transacao {
     private int contaDestino;
     private LocalDateTime dataTransacao;
 
-    public Transacao(double valorTransacao, int contaOrigem, int contaDesitno, LocalDateTime dataTransacao) {
+    public Transacao(double valorTransacao, LocalDateTime dataTransacao) {
         this.valor = valor;
-        this.contaOrigem = this.contaOrigem;
-        this.contaDestino = contaDestino;
-        this.dataTransacao = this.dataTransacao;
+        this.dataTransacao = dataTransacao;
     }
 
     public void setValor(double valor) {

@@ -18,8 +18,7 @@ import Model.Transacao;
 public class panelTransacao extends JFrame {
 
         static private JTextField valor;
-        static private JTextField origem;
-        static private JTextField destino;
+        static private JTextField chaveTransacao;
 
         // Construtor
         public panelTransacao() {
@@ -37,41 +36,30 @@ public class panelTransacao extends JFrame {
             JLabel labelValor = new JLabel("Valor:");
             valor = new JTextField(16);
 
-            // CONTA ORIGEM
-            JLabel labelOrigem = new JLabel("Origem:");
-            origem = new JTextField(16);
-
-            // CONTA DESTINO
-            JLabel labelDestino = new JLabel("Destino:");
-            destino = new JTextField(16);
-
-            // SENHA
+            // ADICIONAR CHAVE DE TRANSAÇÃO DA CONTA DESTINATÁRIA
+            JLabel labelOrigem = new JLabel("Chave de Transação:");
+            chaveTransacao = new JTextField(16);
 
             // Adicionar ao painel
             painel.add(labelValor);
             painel.add(valor);
 
             painel.add(labelOrigem);
-            painel.add(origem);
-
-            painel.add(labelDestino);
-            painel.add(destino);
+            painel.add(chaveTransacao);
 
 
             // Botões
             JButton btnEnviar = new JButton("Enviar Transação");
             JButton btnCancelar = new JButton("Cancelar");
 
-
             btnEnviar.addActionListener(e -> {
 
                 double valorTransacao =  Double.parseDouble(valor.getText().replace(",", "."));
-                int contaOrigem = Integer.parseInt(origem.getText());
-                int contaDesitno = Integer.parseInt(destino.getText());
+                long chaveT = Integer.parseInt(chaveTransacao.getText());
                 LocalDateTime dataTransacao = LocalDateTime.now();
 
                 // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
-                if (valor.getText().trim().isEmpty() || origem.getText().trim().isEmpty() || destino.getText().trim().isEmpty()) {
+                if (valor.getText().trim().isEmpty() || chaveTransacao.getText().trim().isEmpty()) {
 
                     // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
                     JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
@@ -79,13 +67,13 @@ public class panelTransacao extends JFrame {
                 } else {
 
                     // CRIANDO UM NOVO OBJETO CLIENTE E CHAMANDO O CONTROLLER PARA CADASTRA-LO
-                    Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDesitno, dataTransacao);
-                    clienteController cadastrarCliente = new clienteController();
-                    cadastrarCliente.inserirCliente(cliente);
+                    //Transacao transacao = new Transacao(valorTransacao, dataTransacao);
+                    //clienteController cadastrarCliente = new clienteController();
+                    //cadastrarCliente.inserirCliente(cliente);
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cliente " + nomeCliente + " cadastrado com sucesso!"
+                            "Valor " + valorTransacao + " enviado com sucesso!"
                     );
 
                 }
@@ -110,7 +98,7 @@ public class panelTransacao extends JFrame {
         }
         public static void main(String[] args) {
 
-            new View.panelRegistro();
+            new View.panelTransacao();
 
 
 
