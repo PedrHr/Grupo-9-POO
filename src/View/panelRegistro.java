@@ -38,6 +38,11 @@ public class panelRegistro extends JFrame {
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)
         );
 
+        // TÍTULO DA ABA DE CADASTRO
+        JLabel tituloCadastro = new JLabel("CADASTRO", SwingConstants.CENTER);
+        tituloCadastro.setFont(new Font("Arial", Font.BOLD, 32));
+        tituloCadastro.setForeground(new Color(20, 55, 100));
+
         // Grade dos campos
         JPanel painelCampos = new JPanel(new GridLayout(5, 2, 10, 10));
 
@@ -114,6 +119,11 @@ public class panelRegistro extends JFrame {
         painelCampos.add(labelSenha);
         painelCampos.add(boxSenha);
 
+        // Painel Superior (Título + Campos)
+        JPanel painelNorte = new JPanel(new BorderLayout(0, 15));
+        painelNorte.add(tituloCadastro, BorderLayout.NORTH);
+        painelNorte.add(painelCampos, BorderLayout.SOUTH);
+
         // Tipo de conta
         radioCorrente = new JRadioButton("Conta Corrente", true);
         radioPoupanca = new JRadioButton("Conta Poupança");
@@ -140,7 +150,7 @@ public class panelRegistro extends JFrame {
         painelSul.add(painelBotoes, BorderLayout.SOUTH);
 
         // Montando a tela
-        painelPrincipal.add(painelCampos, BorderLayout.NORTH);
+        painelPrincipal.add(painelNorte, BorderLayout.NORTH);
         painelPrincipal.add(painelSul, BorderLayout.SOUTH);
 
         // Ação do botão de cadastrar
@@ -243,7 +253,7 @@ public class panelRegistro extends JFrame {
 
         add(painelPrincipal);
 
-        setSize(500, 480);
+        setSize(500, 540);
         setLocationRelativeTo(null);
         setVisible(true);
     }
