@@ -209,7 +209,7 @@ public class panelRegistro extends JFrame {
                 if (cliente.getIdCliente() == 0) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "Erro ao obter o seu ID, Tente novamente mais tarde!."
+                            "Não foi possivel criar a conta!."
                     );
                     return;
                 }
