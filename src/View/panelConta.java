@@ -114,6 +114,11 @@ public class panelConta {
             botaoRealizarTransacao.setFocusPainted(false);
             painel.add(botaoRealizarTransacao);
 
+            // AÇÃO DO BOTÃO REALIZAR TRANSAÇÃO (Abre a tela mantendo a atual aberta)
+            botaoRealizarTransacao.addActionListener(e -> {
+                new panelTransacao(interfaceConta).setVisible(true);
+            });
+
             JButton botaoVerExtrato = new JButton("Ver extrato");
             botaoVerExtrato.setBounds(40, 520, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));

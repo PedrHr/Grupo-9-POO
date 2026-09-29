@@ -81,35 +81,10 @@ public class panelLogin extends JFrame {
         painelBotoes.add(btnEntrar);
         painelBotoes.add(btnCancelar);
 
-        // BOTÃO CANCELAR: Atua como o login temporário
-        btnCancelar.addActionListener(e -> {
-            limparErros();
+        // BOTÃO CANCELAR: Encerra o aplicativo
+        btnCancelar.addActionListener(e -> System.exit(0));
 
-            String emailLogin = email.getText().trim();
-            String senhaLogin = new String(senha.getPassword()).trim();
-
-            // Campos vazios
-            if (emailLogin.isEmpty() || senhaLogin.isEmpty()) {
-                if (emailLogin.isEmpty()) {
-                    erroEmail.setText("Preencha o e-mail");
-                }
-                if (senhaLogin.isEmpty()) {
-                    erroSenha.setText("Preencha a senha");
-                }
-            } else {
-                // Validação temporária das credenciais
-                if (emailLogin.equalsIgnoreCase("samuel@gmail.com") && senhaLogin.equals("senhalouca")) {
-                    dispose();
-                    panelConta.exibir();
-                } else {
-                    // Exibe a MESMA mensagem genérica embaixo de ambos os campos
-                    erroEmail.setText("E-mail ou senha incorretos");
-                    erroSenha.setText("E-mail ou senha incorretos");
-                }
-            }
-        });
-
-        // AÇÃO DO BOTÃO ENTRAR (Mantida com a verificação padrão do controller/banco)
+        // AÇÃO DO BOTÃO ENTRAR (Verifica credencial mock/fictícia e depois o banco)
         btnEntrar.addActionListener(e -> {
             limparErros();
 
@@ -124,8 +99,17 @@ public class panelLogin extends JFrame {
                     erroSenha.setText("Preencha a senha");
                 }
             } else {
+                // 1. Validação temporária/mock
+                if (emailLogin.equalsIgnoreCase("samuel@gmail.com") && senhaLogin.equals("senhalouca")) {
+                    dispose();
+                    panelConta.exibir();
+                    return;
+                }
+
+                // 2. Validação no banco de dados via controller
                 clienteController buscarCliente = new clienteController();
                 Cliente cliente = buscarCliente.buscarCliente(emailLogin, senhaLogin);
+
                 if (cliente != null) {
                     dispose();
                     panelConta.exibir();

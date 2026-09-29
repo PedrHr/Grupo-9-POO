@@ -1,111 +1,99 @@
 package View;
 
-import Controller.clienteController;
 import Controller.exceptionsController;
-import Model.Cliente;
-
-import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.swing.*;
 
-import Controller.exceptionsController;
-import Model.Cliente;
-import Controller.clienteController;
-import Model.Transacao;
+public class panelTransacao extends JDialog {
 
+    private JTextField valor;
+    private JTextField chaveTransacao;
 
-public class panelTransacao extends JFrame {
+    // Construtor recebendo a janela pai (owner)
+    public panelTransacao(Frame owner) {
+        super(owner, "Realizar Transações", true); // 'true' ativa o modo MODAL
 
-        static private JTextField valor;
-        static private JTextField chaveTransacao;
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Apenas fecha essa janela, sem fechar o app
 
-        // Construtor
-        public panelTransacao() {
+        // Painel
+        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
 
-            setTitle("Realizar Transações");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Adiciona margem
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-            // Painel
-            JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
+        // VALOR DEPOSITO
+        JLabel labelValor = new JLabel("Valor:");
+        valor = new JTextField(16);
 
-            // Adiciona margem
-            painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // ADICIONAR CHAVE DE TRANSAÇÃO DA CONTA DESTINATÁRIA
+        JLabel labelOrigem = new JLabel("Chave de Transação:");
+        chaveTransacao = new JTextField(16);
 
-            // VALOR DEPOSITO
-            JLabel labelValor = new JLabel("Valor:");
-            valor = new JTextField(16);
+        // Adicionar ao painel
+        painel.add(labelValor);
+        painel.add(valor);
 
-            // ADICIONAR CHAVE DE TRANSAÇÃO DA CONTA DESTINATÁRIA
-            JLabel labelOrigem = new JLabel("Chave de Transação:");
-            chaveTransacao = new JTextField(16);
+        painel.add(labelOrigem);
+        painel.add(chaveTransacao);
 
-            // Adicionar ao painel
-            painel.add(labelValor);
-            painel.add(valor);
+        // Botões
+        JButton btnEnviar = new JButton("Enviar Transação");
+        JButton btnCancelar = new JButton("Cancelar");
 
-            painel.add(labelOrigem);
-            painel.add(chaveTransacao);
+        btnEnviar.addActionListener(e -> {
 
+            // VERIFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS ANTES DE FAZER PARSE
+            if (valor.getText().trim().isEmpty() || chaveTransacao.getText().trim().isEmpty()) {
 
-            // Botões
-            JButton btnEnviar = new JButton("Enviar Transação");
-            JButton btnCancelar = new JButton("Cancelar");
+                // MENSAGEM DE ERRO
+                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
 
-            btnEnviar.addActionListener(e -> {
+            } else {
 
-                double valorTransacao =  Double.parseDouble(valor.getText().replace(",", "."));
-                long contaDestino = Integer.parseInt(chaveTransacao.getText());
-                long contaOrigem = 1;
-                LocalDateTime dataTransacao = LocalDateTime.now();
-
-                // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
-                if (valor.getText().trim().isEmpty() || chaveTransacao.getText().trim().isEmpty()) {
-
-                    // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
-                    JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
-
-                } else {
+                try {
+                    double valorTransacao = Double.parseDouble(valor.getText().replace(",", "."));
+                    long contaDestino = Long.parseLong(chaveTransacao.getText().trim());
+                    long contaOrigem = 1;
+                    LocalDateTime dataTransacao = LocalDateTime.now();
 
                     // CRIANDO UM NOVO OBJETO TRANSAÇÃO E CHAMANDO O CONTROLLER PARA CADASTRA-LA
                     // Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
-                    //clienteController cadastrarCliente = new clienteController();
-                    //cadastrarCliente.inserirCliente(cliente);
 
                     JOptionPane.showMessageDialog(
                             this,
                             "Valor " + valorTransacao + " enviado com sucesso!"
                     );
+                    
+                    dispose(); // Fecha a tela após finalizar a transação
 
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos nos campos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
                 }
-            });
+            }
+        });
 
-            btnCancelar.addActionListener(e -> dispose());
+        btnCancelar.addActionListener(e -> dispose());
 
-            painel.add(btnEnviar);
-            painel.add(btnCancelar);
+        painel.add(btnEnviar);
+        painel.add(btnCancelar);
 
-            add(painel);
+        add(painel);
 
-            // Definir tamanho fixo
-            setSize(500, 400);
+        // Definir tamanho fixo
+        setSize(500, 400);
 
-            // Centralizar a janela
-            setLocationRelativeTo(null);
-
-            setVisible(true);
-
-
-        }
-        public static void main(String[] args) {
-
-            new View.panelTransacao();
-
-
-
-
-        }
-
-
+        // Centralizar a janela em relação à janela principal (panelConta)
+        setLocationRelativeTo(owner);
     }
 
+    // Método estático para ser chamado na panelConta
+    public static void exibir(JFrame owner) {
+        panelTransacao dialog = new panelTransacao(owner);
+        dialog.setVisible(true); // Fica bloqueado aqui até o diálogo ser fechado
+    }
+
+    public static void main(String[] args) {
+        panelTransacao.exibir(null);
+    }
+}
