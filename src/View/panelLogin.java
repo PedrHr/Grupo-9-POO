@@ -3,6 +3,8 @@ package View;
 import Controller.clienteController;
 import Model.Cliente;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class panelLogin extends JFrame {
@@ -63,11 +65,32 @@ public class panelLogin extends JFrame {
         erroSenha = criarLabelErro();
         JPanel boxSenha = criarBoxCampo(labelSenha, painelSenhaInput, erroSenha);
 
+        // LINK PARA REGISTRO
+        JLabel lblRegistro = new JLabel("<html><u>Não tem conta? Crie a sua aqui.</u></html>");
+        lblRegistro.setForeground(new Color(0, 102, 204));
+        lblRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblRegistro.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        lblRegistro.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Fecha o Login
+                
+                // Se o seu panelRegistro usar método estático exibir():
+                // panelRegistro.exibir();
+                
+                // Ou se for um JFrame/JPanel instanciado diretamente:
+                new panelRegistro();
+            }
+        });
+
         // espaçador em cima pra empurrar pro centro
         painelCentral.add(Box.createVerticalGlue());
         painelCentral.add(boxEmail);
         painelCentral.add(Box.createRigidArea(new Dimension(0, 10)));
         painelCentral.add(boxSenha);
+        painelCentral.add(Box.createRigidArea(new Dimension(0, 5)));
+        painelCentral.add(lblRegistro);
         painelCentral.add(Box.createVerticalGlue());
 
         // botoes entrar e cancelar

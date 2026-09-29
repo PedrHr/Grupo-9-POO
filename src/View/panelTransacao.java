@@ -3,94 +3,142 @@ package View;
 import Controller.exceptionsController;
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
 public class panelTransacao extends JDialog {
 
-    private JTextField valor;
-    private JTextField chaveTransacao;
+    private JTextField txtValor;
+    private JTextField txtOrigem;
+    private JTextField txtDestino;
 
     // Construtor recebendo a janela pai (owner)
     public panelTransacao(Frame owner) {
-        super(owner, "Realizar Transações", true); // 'true' ativa o modo MODAL
+        super(owner, "Realizar Transação", true); // Modo MODAL ativado
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Apenas fecha essa janela, sem fechar o app
+        // Painel Principal
+        JPanel painelPrincipal = new JPanel(new BorderLayout(10, 15));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        // Painel
-        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
+        // Painel Central com GridBagLayout (Centralizado)
+        JPanel painelCentral = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(8, 0, 8, 0); // Espaçamento vertical entre os elementos
 
-        // Adiciona margem
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        // VALOR DEPOSITO
+        // 1. VALOR
         JLabel labelValor = new JLabel("Valor:");
-        valor = new JTextField(16);
+        txtValor = new JTextField(16);
+        JPanel boxValor = criarBoxCampo(labelValor, txtValor);
 
-        // ADICIONAR CHAVE DE TRANSAÇÃO DA CONTA DESTINATÁRIA
-        JLabel labelOrigem = new JLabel("Chave de Transação:");
-        chaveTransacao = new JTextField(16);
+        // 2. ORIGEM
+        JLabel labelOrigem = new JLabel("Origem:");
+        txtOrigem = new JTextField(16);
+        JPanel boxOrigem = criarBoxCampo(labelOrigem, txtOrigem);
 
-        // Adicionar ao painel
-        painel.add(labelValor);
-        painel.add(valor);
+        // 3. DESTINO
+        JLabel labelDestino = new JLabel("Destino:");
+        txtDestino = new JTextField(16);
+        JPanel boxDestino = criarBoxCampo(labelDestino, txtDestino);
 
-        painel.add(labelOrigem);
-        painel.add(chaveTransacao);
+        // ADICIONA OS CAMPOS AO PAINEL CENTRAL
+        painelCentral.add(boxValor, gbc);
+        painelCentral.add(boxOrigem, gbc);
+        painelCentral.add(boxDestino, gbc);
 
-        // Botões
-        JButton btnEnviar = new JButton("Enviar Transação");
-        JButton btnCancelar = new JButton("Cancelar");
+        // BOTÕES ENVIAR E VOLTAR
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        JButton btnEnviar = new JButton("Enviar");
+        JButton btnVoltar = new JButton("Voltar");
 
+        btnEnviar.setPreferredSize(new Dimension(150, 35));
+        btnVoltar.setPreferredSize(new Dimension(150, 35));
+
+        painelBotoes.add(btnEnviar);
+        painelBotoes.add(btnVoltar);
+
+        // AÇÃO DO BOTÃO VOLTAR
+        btnVoltar.addActionListener(e -> dispose());
+
+        // AÇÃO DO BOTÃO ENVIAR
         btnEnviar.addActionListener(e -> {
+            String strValor = txtValor.getText().trim();
+            String strOrigem = txtOrigem.getText().trim();
+            String strDestino = txtDestino.getText().trim();
 
-            // VERIFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS ANTES DE FAZER PARSE
-            if (valor.getText().trim().isEmpty() || chaveTransacao.getText().trim().isEmpty()) {
-
-                // MENSAGEM DE ERRO
-                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
-
+            // VERIFICAÇÃO DE CAMPOS VAZIOS
+            if (strValor.isEmpty() || strOrigem.isEmpty() || strDestino.isEmpty()) {
+                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios(), "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
-
                 try {
-                    double valorTransacao = Double.parseDouble(valor.getText().replace(",", "."));
-                    long contaDestino = Long.parseLong(chaveTransacao.getText().trim());
-                    long contaOrigem = 1;
-                    LocalDateTime dataTransacao = LocalDateTime.now();
+                    double valorTransacao = Double.parseDouble(strValor.replace(",", "."));
+                    long contaOrigem = Long.parseLong(strOrigem);
+                    long contaDestino = Long.parseLong(strDestino);
 
-                    // CRIANDO UM NOVO OBJETO TRANSAÇÃO E CHAMANDO O CONTROLLER PARA CADASTRA-LA
+                    // MOMENTO EM QUE A TRANSAÇÃO FOI EFETUADA
+                    LocalDateTime dataTransacao = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                    String dataFormatada = dataTransacao.format(formatter);
+
+                    // AQUI VOCÊ PODE INSTANCIAR O SEU CONTROLLER / MODELO:
                     // Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Valor " + valorTransacao + " enviado com sucesso!"
+                            "Transação efetuada com sucesso!\n\n"
+                            + "Valor: R$ " + String.format("%.2f", valorTransacao) + "\n"
+                            + "Origem: " + contaOrigem + "\n"
+                            + "Destino: " + contaDestino + "\n"
+                            + "Data/Hora: " + dataFormatada,
+                            "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE
                     );
-                    
-                    dispose(); // Fecha a tela após finalizar a transação
+
+                    dispose(); // Fecha o diálogo após o envio
 
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Por favor, insira valores válidos nos campos.", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Por favor, insira números válidos nos campos de Valor, Origem e Destino.",
+                            "Erro de Formatação",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                 }
             }
         });
 
-        btnCancelar.addActionListener(e -> dispose());
+        painelPrincipal.add(painelCentral, BorderLayout.CENTER);
+        painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
-        painel.add(btnEnviar);
-        painel.add(btnCancelar);
+        add(painelPrincipal);
 
-        add(painel);
-
-        // Definir tamanho fixo
-        setSize(500, 400);
-
-        // Centralizar a janela em relação à janela principal (panelConta)
+        setSize(480, 520);
         setLocationRelativeTo(owner);
+    }
+
+    // Método auxiliar para criar campos centralizados na vertical
+    private JPanel criarBoxCampo(JLabel label, JComponent campo) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        campo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(campo);
+
+        return panel;
     }
 
     // Método estático para ser chamado na panelConta
     public static void exibir(JFrame owner) {
         panelTransacao dialog = new panelTransacao(owner);
-        dialog.setVisible(true); // Fica bloqueado aqui até o diálogo ser fechado
+        dialog.setVisible(true);
     }
 
     public static void main(String[] args) {
