@@ -8,8 +8,9 @@ public abstract class Conta {
 
 
     public Conta(double saldoAtual, String tipoConta, Cliente cliente) {
-        this.numeroConta = numeroConta;
         this.saldoAtual = saldoAtual;
+        this.tipoConta = tipoConta;
+        this.cliente = cliente;
     }
 
     public void depositarValor(double valorDeposito){
