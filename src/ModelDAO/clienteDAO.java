@@ -93,7 +93,7 @@ public class clienteDAO {
             stmt = conexaoDAO.getConexao().prepareStatement(sql);
 
             stmt.setInt(1, idCliente);
-            stmt.execute();
+
             ResultSet result = stmt.executeQuery();
 
 
