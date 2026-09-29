@@ -41,12 +41,11 @@ public class contaDAO {
 
                 contaCorrente corrente = (contaCorrente) conta;
 
-                sql = "INSERT INTO CONTACORRENTE (idContaCorrente, limiteCredito, chaveTransacao) VALUES (?, ?, ?)";
+                sql = "INSERT INTO CONTACORRENTE (idContaCorrente) VALUES (?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
 
                 stmt.setInt(1, conta.getNumeroConta());
-                stmt.setDouble(2, corrente.getLimiteCredito());
 
                 stmt.executeUpdate();
 

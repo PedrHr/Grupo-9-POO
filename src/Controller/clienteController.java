@@ -10,7 +10,8 @@ public class clienteController {
     }
 
     public void inserirCliente(Cliente cliente) {
-       clienteDAO.inserirCliente(cliente);
+      clienteDAO.inserirCliente(cliente);
+
     }
 
     public Cliente buscarCliente(String emailCliente, String senhaCliente){

@@ -1,6 +1,7 @@
 package View;
 
 import Controller.clienteController;
+import Controller.contaCorrenteController;
 import Model.Cliente;
 import Model.Conta;
 import Model.contaCorrente;
@@ -275,18 +276,16 @@ public class panelRegistro extends JFrame {
                 return;
             }
 
-
+            // Criando cliente e conta do cliente
             Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
-
             clienteController cadastrarCliente = new clienteController();
-
             cadastrarCliente.inserirCliente(cliente);
 
             if (cliente.getIdCliente() == 0) {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Erro ao obter o ID do cliente."
+                        "Erro ao obter o seu ID, Tente novamente mais tarde!."
                 );
 
                 return;
@@ -299,19 +298,14 @@ public class panelRegistro extends JFrame {
 
             if (radioCorrente.isSelected()) {
 
-                contaCorrente corrente =
-                        new contaCorrente();
+                contaCorrente corrente = new contaCorrente();
+                contaCorrenteController inserirCorrente = new contaCorrenteController();
+                inserirCorrente.inserirConta(corrente, cliente);
 
-                corrente.setSaldoAtual(0);
-
-                corrente.setLimiteCredito(500);
-
-                conta = corrente;
-                tipoConta = "Conta Corrente";
 
             } else {
 
-
+                System.out.println("oi");
             }
 
         });
