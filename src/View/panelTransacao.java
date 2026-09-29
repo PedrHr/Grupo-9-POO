@@ -55,7 +55,8 @@ public class panelTransacao extends JFrame {
             btnEnviar.addActionListener(e -> {
 
                 double valorTransacao =  Double.parseDouble(valor.getText().replace(",", "."));
-                long chaveT = Integer.parseInt(chaveTransacao.getText());
+                long contaDestino = Integer.parseInt(chaveTransacao.getText());
+                long contaOrigem = 1;
                 LocalDateTime dataTransacao = LocalDateTime.now();
 
                 // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
@@ -66,8 +67,8 @@ public class panelTransacao extends JFrame {
 
                 } else {
 
-                    // CRIANDO UM NOVO OBJETO CLIENTE E CHAMANDO O CONTROLLER PARA CADASTRA-LO
-                    //Transacao transacao = new Transacao(valorTransacao, dataTransacao);
+                    // CRIANDO UM NOVO OBJETO TRANSAÇÃO E CHAMANDO O CONTROLLER PARA CADASTRA-LA
+                    Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
                     //clienteController cadastrarCliente = new clienteController();
                     //cadastrarCliente.inserirCliente(cliente);
 

@@ -6,11 +6,13 @@ public class Transacao {
     private int idTransacao;
     private double valor;
     private int contaOrigem;
-    private int contaDestino;
+    private long contaDestino;
     private LocalDateTime dataTransacao;
 
-    public Transacao(double valorTransacao, LocalDateTime dataTransacao) {
+    public Transacao(double valorTransacao, int contaOrigem, long contaDestino, LocalDateTime dataTransacao) {
         this.valor = valor;
+        this.contaDestino = contaOrigem;
+        this.contaDestino = contaDestino;
         this.dataTransacao = dataTransacao;
     }
 
@@ -37,6 +39,10 @@ public class Transacao {
     }
     public void getDataTransacao(LocalDateTime dataTransacao) {
         this.dataTransacao = dataTransacao;
+    }
+
+    public void transferirValor(double valorTransferencia, Conta contaDestino ) {
+
     }
 
 }
