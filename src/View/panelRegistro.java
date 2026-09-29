@@ -3,6 +3,8 @@ package View;
 import Controller.exceptionsController;
 import Model.Cliente;
 import Controller.clienteController;
+import Model.contaCorrente;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -47,9 +49,10 @@ public class panelRegistro extends JFrame {
         JLabel labelSenha = new JLabel("Senha:");
         senha = new JPasswordField(16);
 
-        JLabel labelVazio = new JLabel("");
         // Label tipo conta
         JLabel labelTipoConta = new JLabel("Tipo de conta:");
+
+        JLabel labelVazio = new JLabel("");
 
         JRadioButton contaCorrente = new JRadioButton("Conta Corrente");
         JRadioButton contaPoupanca = new JRadioButton("Conta Poupança");
@@ -89,14 +92,23 @@ public class panelRegistro extends JFrame {
 
         btnCadastrar.addActionListener(e -> {
 
-                    String nomeCliente = nome.getText();
-                    String cpfCliente = cpf.getText();
-                    String enderecoCliente = endereco.getText();
-                    String emailCliente = email.getText();
-                    String senhaCliente = new String(senha.getPassword());
+            String nomeCliente = nome.getText();
+            String cpfCliente = cpf.getText();
+            String enderecoCliente = endereco.getText();
+            String emailCliente = email.getText();
+            String senhaCliente = new String(senha.getPassword());
 
-                // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
-            if (nomeCliente.trim().isEmpty() || cpfCliente.trim().isEmpty() || enderecoCliente.trim().isEmpty() || emailCliente.trim().isEmpty() || senhaCliente.trim().isEmpty()) {
+            // PEGANDO O TIPO DE CONTA
+            String tipoConta = "";
+
+            if (contaCorrente.isSelected()) {
+                tipoConta = "corrente";
+            } else if (contaPoupanca.isSelected()) {
+                tipoConta = "poupanca";
+            }
+
+            // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
+            if (nomeCliente.trim().isEmpty() || cpfCliente.trim().isEmpty() || enderecoCliente.trim().isEmpty() || emailCliente.trim().isEmpty() || senhaCliente.trim().isEmpty()) || tipoConta.trim().isEmpty() ){
 
                 // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
                 JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
@@ -108,9 +120,14 @@ public class panelRegistro extends JFrame {
                 clienteController cadastrarCliente = new clienteController();
                 cadastrarCliente.inserirCliente(cliente);
 
+                if(tipoConta.equals("corrente")){
+                    contaCorrente contaCorrenteUsuario = new contaCorrente();
+
+                }
+
                 JOptionPane.showMessageDialog(
-                    this,
-                    "Cliente " + nomeCliente + " cadastrado com sucesso!"
+                        this,
+                        "Cliente " + nomeCliente + " cadastrado com sucesso!"
                 );
 
             }
@@ -133,11 +150,10 @@ public class panelRegistro extends JFrame {
 
 
     }
+
     public static void main(String[] args) {
 
         new panelRegistro();
-
-
 
 
     }

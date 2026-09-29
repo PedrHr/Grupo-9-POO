@@ -2,7 +2,7 @@ package Model;
 
 public abstract class Conta {
     private int numeroConta;
-    private double saldoAtual;
+    private double saldoAtual = 0;
     private Cliente cliente;
 
     public void depositarValor(double valorDeposito){

@@ -12,8 +12,13 @@ public class contaCorrente extends Conta {
 
     @Override
     public void sacarValor(double valorSacar) {
-        if (valorSacar <= 0){
-            return;
+        if (valorSacar <= getSaldoAtual() + getLimiteCredito()) {
+            if (valorSacar > getSaldoAtual()) {
+                double sobreLimite = valorSacar - getSaldoAtual();
+                setLimiteCredito(getLimiteCredito() - sobreLimite);
+                setSaldoAtual(0);
+
+            }
         }
 
         // Tem dinheiro suficiente no saldo
@@ -38,4 +43,7 @@ public class contaCorrente extends Conta {
         return limiteCredito;
     }
 
+    public void setLimiteCredito(double limiteCredito) {
+        this.limiteCredito = limiteCredito;
+    }
 }
