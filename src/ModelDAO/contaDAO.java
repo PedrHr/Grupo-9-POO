@@ -12,7 +12,7 @@ import Model.contaCorrente;
 import Model.contaPoupanca;
 
 public class contaDAO {
-    public String inserirConta(Cliente cliente, Conta conta, String tipoConta) {
+    public String inserirConta(Conta conta) {
 
         String sql = "INSERT INTO CONTA (SALDOATUAL, TIPOCONTA, IDCLIENTE_CLIENTE) VALUES (?, ?, ?)";
 
@@ -23,8 +23,8 @@ public class contaDAO {
             );
 
             stmt.setDouble(1, conta.getSaldoAtual());
-            stmt.setDouble(2, conta.getTipoConta());
-            stmt.setInt(2, cliente.getIdCliente());
+            stmt.setString(2, conta.getTipoConta());
+            stmt.setInt(3, conta.getCliente().getIdCliente());
 
             stmt.executeUpdate();
 

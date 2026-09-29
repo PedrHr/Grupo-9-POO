@@ -4,9 +4,10 @@ public abstract class Conta {
     private int numeroConta;
     private double saldoAtual;
     private String tipoConta;
+    private Cliente cliente;
 
 
-    public Conta(double saldoAtual, String tipoConta) {
+    public Conta(double saldoAtual, String tipoConta, Cliente cliente) {
         this.numeroConta = numeroConta;
         this.saldoAtual = saldoAtual;
     }
@@ -51,5 +52,13 @@ public abstract class Conta {
 
     public void setTipoConta(String tipoConta) {
         this.tipoConta = tipoConta;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
