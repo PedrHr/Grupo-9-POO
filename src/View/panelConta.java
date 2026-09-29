@@ -1,31 +1,27 @@
 package View;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class panelConta {
 
-    static JFrame interfaceConta = new JFrame("Conta");
+    static JFrame interfaceConta;
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(() -> {
+    public static void exibir() {
+        if (interfaceConta == null) {
+            interfaceConta = new JFrame("Conta");
 
             // PAINEL PRINCIPAL
             JPanel painel = new JPanel();
             painel.setLayout(null);
             painel.setBackground(new Color(240, 243, 248));
 
-            
             // INFORMAÇÕES DA CONTA
-            
-
             JLabel titulo = new JLabel("MINHA CONTA");
             titulo.setBounds(30, 20, 400, 35);
             titulo.setFont(new Font("Arial", Font.BOLD, 24));
             titulo.setForeground(new Color(30, 60, 100));
             painel.add(titulo);
-
 
             JLabel labelUsuario = new JLabel("Usuário:");
             labelUsuario.setBounds(40, 80, 120, 25);
@@ -37,7 +33,6 @@ public class panelConta {
             campoUsuario.setEditable(false);
             campoUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoUsuario);
-
 
             JLabel labelSaldo = new JLabel("Saldo:");
             labelSaldo.setBounds(40, 125, 120, 25);
@@ -51,7 +46,6 @@ public class panelConta {
             campoSaldo.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoSaldo);
 
-
             JLabel labelLimite = new JLabel("Limite crédito:");
             labelLimite.setBounds(40, 170, 120, 25);
             labelLimite.setFont(new Font("Arial", Font.BOLD, 14));
@@ -63,7 +57,6 @@ public class panelConta {
             campoLimiteCredito.setBackground(new Color(225, 230, 238));
             campoLimiteCredito.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoLimiteCredito);
-
 
             JLabel labelChave = new JLabel("Chave Transação:");
             labelChave.setBounds(40, 215, 120, 25);
@@ -77,17 +70,12 @@ public class panelConta {
             campoChaveTransacao.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoChaveTransacao);
 
-
-            
             // OPERAÇÕES
-            
-
             JLabel tituloOperacoes = new JLabel("OPERAÇÕES");
             tituloOperacoes.setBounds(40, 265, 300, 30);
             tituloOperacoes.setFont(new Font("Arial", Font.BOLD, 18));
             tituloOperacoes.setForeground(new Color(30, 60, 100));
             painel.add(tituloOperacoes);
-
 
             JLabel labelDepositar = new JLabel("Depositar:");
             labelDepositar.setBounds(40, 315, 120, 25);
@@ -99,7 +87,6 @@ public class panelConta {
             campoDepositar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoDepositar);
 
-
             JLabel labelSacar = new JLabel("Sacar:");
             labelSacar.setBounds(40, 360, 120, 25);
             labelSacar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -110,11 +97,7 @@ public class panelConta {
             campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoSacar);
 
-
-            
             // BOTÕES
-           
-
             JButton botaoGerarChave = new JButton("Gerar chave transação");
             botaoGerarChave.setBounds(40, 420, 370, 40);
             botaoGerarChave.setFont(new Font("Arial", Font.BOLD, 14));
@@ -122,7 +105,6 @@ public class panelConta {
             botaoGerarChave.setForeground(Color.WHITE);
             botaoGerarChave.setFocusPainted(false);
             painel.add(botaoGerarChave);
-
 
             JButton botaoRealizarTransacao = new JButton("Realizar transação");
             botaoRealizarTransacao.setBounds(40, 470, 370, 40);
@@ -132,7 +114,6 @@ public class panelConta {
             botaoRealizarTransacao.setFocusPainted(false);
             painel.add(botaoRealizarTransacao);
 
-
             JButton botaoVerExtrato = new JButton("Ver extrato");
             botaoVerExtrato.setBounds(40, 520, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
@@ -141,17 +122,18 @@ public class panelConta {
             botaoVerExtrato.setFocusPainted(false);
             painel.add(botaoVerExtrato);
 
-
-            
             // CONFIGURAÇÃO DA JANELA
-            
-
             interfaceConta.setContentPane(painel);
             interfaceConta.setSize(480, 630);
             interfaceConta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             interfaceConta.setLocationRelativeTo(null);
             interfaceConta.setResizable(false);
-            interfaceConta.setVisible(true);
-        });
+        }
+
+        interfaceConta.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> exibir());
     }
 }
