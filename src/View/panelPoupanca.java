@@ -102,13 +102,6 @@ public class panelPoupanca {
             botaoSacar.setFocusPainted(false);
             painel.add(botaoSacar);
 
-            JButton botaoVerExtrato = new JButton("Ver extrato");
-            botaoVerExtrato.setBounds(40, 460, 370, 40);
-            botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
-            botaoVerExtrato.setBackground(new Color(20, 55, 100));
-            botaoVerExtrato.setForeground(Color.WHITE);
-            botaoVerExtrato.setFocusPainted(false);
-            painel.add(botaoVerExtrato);
 
             // CONFIGURAÇÃO DA JANELA
             interfaceConta.setContentPane(painel);
