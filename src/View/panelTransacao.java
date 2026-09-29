@@ -68,7 +68,7 @@ public class panelTransacao extends JFrame {
                 } else {
 
                     // CRIANDO UM NOVO OBJETO TRANSAÇÃO E CHAMANDO O CONTROLLER PARA CADASTRA-LA
-                    Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
+                    // Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
                     //clienteController cadastrarCliente = new clienteController();
                     //cadastrarCliente.inserirCliente(cliente);
 
@@ -108,4 +108,4 @@ public class panelTransacao extends JFrame {
 
 
     }
-}
+

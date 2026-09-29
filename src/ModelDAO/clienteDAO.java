@@ -27,8 +27,9 @@ public class clienteDAO {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return System.out.println("tudo errado");
+            System.out.println("tudo errado");
         }
+        return sql;
     }
 
     public Cliente buscarCliente(String email, String senha){

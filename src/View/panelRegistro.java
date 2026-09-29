@@ -22,7 +22,7 @@ public class panelRegistro extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Painel
-        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
+        JPanel painel = new JPanel(new GridLayout(8, 2, 10, 15));
 
         // Adiciona margem
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -47,6 +47,19 @@ public class panelRegistro extends JFrame {
         JLabel labelSenha = new JLabel("Senha:");
         senha = new JPasswordField(16);
 
+        JLabel labelVazio = new JLabel("");
+        // Label tipo conta
+        JLabel labelTipoConta = new JLabel("Tipo de conta:");
+
+        JRadioButton contaCorrente = new JRadioButton("Conta Corrente");
+        JRadioButton contaPoupanca = new JRadioButton("Conta Poupança");
+
+
+        // Grupo para permitir apenas uma opção
+        ButtonGroup grupoConta = new ButtonGroup();
+        grupoConta.add(contaCorrente);
+        grupoConta.add(contaPoupanca);
+
         // Adicionar ao painel
         painel.add(labelNome);
         painel.add(nome);
@@ -62,6 +75,12 @@ public class panelRegistro extends JFrame {
 
         painel.add(labelSenha);
         painel.add(senha);
+
+        painel.add(labelTipoConta);
+        painel.add(contaCorrente);
+
+        painel.add(labelVazio);
+        painel.add(contaPoupanca);
 
         // Botões
         JButton btnCadastrar = new JButton("Cadastrar");
