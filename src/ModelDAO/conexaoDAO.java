@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class conexaoDAO {
-    private static final String url = "jdbc:mysql://localhost:3306/contaBancaria";
+    private static final String url = "jdbc:mysql://localhost:3306/systemBank";
     private static final String user = "root";
     private static final String password = "";
     private static Connection conn;

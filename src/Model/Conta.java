@@ -2,7 +2,14 @@ package Model;
 
 public abstract class Conta {
     private int numeroConta;
-    private double saldoAtual = 0;
+    private double saldoAtual;
+    private String tipoConta;
+
+
+    public Conta(double saldoAtual, String tipoConta) {
+        this.numeroConta = numeroConta;
+        this.saldoAtual = saldoAtual;
+    }
 
     public void depositarValor(double valorDeposito){
         if(valorDeposito > 0) {
@@ -38,4 +45,11 @@ public abstract class Conta {
         this.numeroConta = numeroConta;
     }
 
+    public String getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(String tipoConta) {
+        this.tipoConta = tipoConta;
+    }
 }

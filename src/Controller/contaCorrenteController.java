@@ -8,9 +8,9 @@ import Model.Conta;
 public class contaCorrenteController {
     private contaDAO contaDAO;
 
-public void inserirConta( contaCorrente contaCorrente, Cliente cliente){
+public void inserirConta( contaCorrente contaCorrente, String tipoConta, Cliente cliente){
     contaDAO contaDAO = new contaDAO();
-    contaDAO.inserirConta(cliente, contaCorrente);
+    contaDAO.inserirConta(cliente, contaCorrente, tipoConta);
 }
 
 }

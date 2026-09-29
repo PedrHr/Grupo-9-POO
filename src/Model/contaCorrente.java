@@ -6,6 +6,10 @@ public class contaCorrente extends Conta {
     private double limiteCredito = getSaldoAtual()/2;
     private long chaveTransacao;
 
+    public contaCorrente(double saldoAtual, String tipoConta) {
+
+        super(saldoAtual, tipoConta);
+    }
     @Override
     public void sacarValor(double valorSacar) {
 
