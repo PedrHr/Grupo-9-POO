@@ -34,6 +34,7 @@ public class panelConta {
 
             JTextField campoUsuario = new JTextField();
             campoUsuario.setBounds(160, 78, 250, 30);
+            campoUsuario.setEditable(false);
             campoUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoUsuario);
 
