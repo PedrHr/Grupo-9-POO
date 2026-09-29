@@ -122,6 +122,7 @@ public class panelRegistro extends JFrame {
 
                 if(tipoConta.equals("corrente")){
                     contaCorrente contaCorrenteUsuario = new contaCorrente();
+                    Controller controllerContaCorrente = new Controller();
 
                 }
 
