@@ -1,5 +1,6 @@
 package Controller;
 import Model.Cliente;
+import Model.Transacao;
 import Model.contaCorrente;
 import ModelDAO.clienteDAO;
 import ModelDAO.contaDAO;

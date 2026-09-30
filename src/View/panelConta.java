@@ -165,7 +165,7 @@ public class panelConta {
             botaoEnviarDeposito.addActionListener(e -> {
                 double Deposito = Double.parseDouble(campoDepositar.getText());
                 ContaCorrente.depositarValor(Deposito);
-                System.out.println(ContaCorrente.getSaldoAtual());
+
                 contaCorrenteController controllCorrente = new contaCorrenteController();
                 String mensagemSucess = controllCorrente.inserirDeposito(ContaCorrente);
 
@@ -174,12 +174,11 @@ public class panelConta {
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);
-                    });
+            });
 
             btnSacar.addActionListener(e -> {
                 double Saque = Double.parseDouble(campoSacar.getText());
-                 String msgSaque = ContaCorrente.sacarValor(Saque);
-                System.out.println(ContaCorrente.getSaldoAtual());
+                String msgSaque = ContaCorrente.sacarValor(Saque);
                 contaCorrenteController controllCorrente = new contaCorrenteController();
                 String mensagemSaque = controllCorrente.sacarValor(ContaCorrente);
 
@@ -188,9 +187,9 @@ public class panelConta {
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);
-                    });
+            });
 
-                botaoGerarChave.addActionListener(e -> {
+            botaoGerarChave.addActionListener(e -> {
 
                 long chave = ContaCorrente.gerarChaveTransacao();
                 contaCorrenteController controllerCorrente = new contaCorrenteController();
@@ -201,7 +200,7 @@ public class panelConta {
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);
-                    });
+            });
 
 
             // CONFIGURAÇÃO DA JANELA

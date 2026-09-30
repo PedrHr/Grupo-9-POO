@@ -8,7 +8,7 @@ public class contaCorrente extends Conta {
     private double limiteCredito;
     private long chaveTransacao;
 
-    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente) {
+    public contaCorrente(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
         super(saldoAtual, tipoConta, cliente);
     }
 
@@ -17,6 +17,7 @@ public class contaCorrente extends Conta {
 
         if (getSaldoAtual() >= valorSacar) {
             diminuirSaldo(valorSacar);
+            gerarLimiteCredito();
         } else if (getSaldoAtual() + limiteCredito >= valorSacar) {
             double valorRestante = valorSacar - getSaldoAtual();
 
@@ -26,15 +27,9 @@ public class contaCorrente extends Conta {
             contaCorrenteController contaController  = new contaCorrenteController();
             return contaController.avisoSaldoInsuficiente();
         }
-        return "Oiiiiiiiiiiiiii";
+        return "O valor foi descontado do seu credito";
     }
 
-    @Override
-    public void depositarValor(double valorDeposito){
-        if(valorDeposito > 0) {
-            this.limiteCredito = (getSaldoAtual() + valorDeposito);
-        }
-    }
 
     public long gerarChaveTransacao() {
         return  this.chaveTransacao = System.currentTimeMillis();
@@ -51,4 +46,5 @@ public class contaCorrente extends Conta {
     public long getChaveTransacao() {
         return chaveTransacao;
     }
+
 }

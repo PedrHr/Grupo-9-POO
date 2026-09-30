@@ -88,6 +88,7 @@ public class panelLogin extends JFrame {
             }
         });
 
+
         //espaçadores e organizacao dos campos
         painelCentral.add(Box.createVerticalGlue());
         painelCentral.add(tituloLogin);
@@ -131,24 +132,27 @@ public class panelLogin extends JFrame {
                     erroSenha.setText("Preencha a senha");
                 }
             } else {
-
-
                 //validacao no banco
                 clienteController controllCliente = new clienteController();
                 Cliente cliente = controllCliente.buscarCliente(emailLogin, senhaLogin);
 
-                Conta conta = controllCliente.buscarContaCliente(cliente);
+                if (cliente == null) {
+                    JOptionPane.showMessageDialog(null, "Senha ou email incorretos");
+                }else {
+                    Conta conta = controllCliente.buscarContaCliente(cliente);
 
-                if (cliente != null && conta.getTipoConta().equals("CORRENTE")) {
-                    dispose();
-                    contaCorrente contaC = (contaCorrente) conta;
-                    panelConta.exibir(cliente, contaC);
-                } else if(cliente != null && conta.getTipoConta().equals("POUPANCA")) {
-                    contaPoupanca contaP = (contaPoupanca) conta;
-                    panelPoupanca.exibir(cliente, contaP);
-                }else{
-                    erroEmail.setText("E-mail ou senha incorretos");
-                    erroSenha.setText("E-mail ou senha incorretos");
+                    if (cliente != null && conta.getTipoConta() == Conta.TipoConta.CORRENTE) {
+                        dispose();
+                        contaCorrente contaC = (contaCorrente) conta;
+                        panelConta.exibir(cliente, contaC);
+                        JOptionPane.showMessageDialog(null, "Seja bem vindo a sua conta");
+                    } else if (cliente != null && conta.getTipoConta() == Conta.TipoConta.POUPANCA) {
+                        contaPoupanca contaP = (contaPoupanca) conta;
+                        setVisible(false);
+
+                        panelPoupanca.exibir(cliente, contaP);
+                        JOptionPane.showMessageDialog(null, "Seja bem vindo a sua conta");
+                    }
                 }
             }
         });

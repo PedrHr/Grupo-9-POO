@@ -1,4 +1,5 @@
 package ModelDAO;
+import javax.swing.*;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,14 +14,14 @@ public class conexaoDAO {
         try {
             if (conn == null) {
                 conn = DriverManager.getConnection(url, user, password);
-                System.out.println("tudo certo");
+                JOptionPane.showMessageDialog(null, "Base de dados encontrada com sucesso");
                 return conn;
             } else {
                 return conn;
             }
         } catch (SQLException excecao){
             excecao.printStackTrace();
-            System.out.println("tudo errado");
+            JOptionPane.showMessageDialog(null, "Nao foi possivel estabelcer conexao com o Banco de Dados");
             return null;
         }
 

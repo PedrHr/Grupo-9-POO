@@ -22,7 +22,7 @@ public class contaDAO {
             );
 
             stmt.setDouble(1, conta.getSaldoAtual());
-            stmt.setString(2, conta.getTipoConta());
+            stmt.setString(2, conta.getTipoConta().name());
             stmt.setInt(3, conta.getCliente().getIdCliente());
 
             stmt.executeUpdate();
@@ -83,7 +83,6 @@ public class contaDAO {
         System.out.println(conta.getSaldoAtual());
         String sql = "UPDATE CONTA SET saldoAtual = ? WHERE numeroConta = ?";
 
-        System.out.println(conta.getNumeroConta());
 
         try {
             PreparedStatement stmt = conexaoDAO.getConexao().prepareStatement(sql);
@@ -92,6 +91,9 @@ public class contaDAO {
             stmt.setInt(2, conta.getNumeroConta());
 
             stmt.executeUpdate();
+
+            contaCorrente corrente = (contaCorrente) conta;
+            corrente.gerarLimiteCredito();
 
             stmt.close();
 
@@ -120,11 +122,11 @@ public class contaDAO {
 
             stmt.close();
 
-            return "Valor sacada da sua conta com sucesso!";
+            return "Valor retirado da sua conta com suecsso!";
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return "Erro ao depositar valor na conta";
+            return "Erro ao retirar o valor na conta";
         }
     }
 

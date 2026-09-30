@@ -227,15 +227,16 @@ public class panelRegistro extends JFrame {
                 //salva conta no banco
                 if (radioCorrente.isSelected()) {
                     contaCorrenteController contaCorrente = new contaCorrenteController();
-                    contaCorrente corrente = new contaCorrente(contaCorrente.getSaldoInicial(),"CORRENTE", cliente);
-
+                    contaCorrente corrente = new contaCorrente(contaCorrente.getSaldoInicial(), Conta.TipoConta.CORRENTE, cliente);
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
+                    JOptionPane.showMessageDialog(null, "Conta registrada com sucesso");
                 } else {
                     contaPoupancaController contaPoupanca = new contaPoupancaController();
-                    contaPoupanca poupanca = new contaPoupanca(contaPoupanca.getSaldoInicial(), "POUPANCA", cliente);
+                    contaPoupanca poupanca = new contaPoupanca(contaPoupanca.getSaldoInicial(), Conta.TipoConta.POUPANCA, cliente);
                     contaPoupancaController inserirPoupanca = new contaPoupancaController();
                     inserirPoupanca.inserirConta(poupanca);
+                    JOptionPane.showMessageDialog(null, "Conta registrada com sucesso");
                 }
 
                 //redireciona para o login

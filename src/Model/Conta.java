@@ -5,14 +5,22 @@ import javax.swing.*;
 public abstract class Conta {
     private int numeroConta;
     private double saldoAtual = 0;
-    private String tipoConta;
+    private TipoConta tipoConta;
     private Cliente cliente;
-    private double saldoAtualInicial =0 ;
+    private double saldoAtualInicial = 0 ;
 
-    public Conta(double saldoAtual, String tipoConta, Cliente cliente) {
+    public Conta(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
         this.saldoAtual = saldoAtual;
         this.tipoConta = tipoConta;
         this.cliente = cliente;
+    }
+
+    public enum TipoConta {
+        CORRENTE, POUPANCA
+    }
+
+    public TipoConta getTicoConta() {
+        return tipoConta;
     }
 
     public void depositarValor(double valorDeposito){
@@ -46,12 +54,8 @@ public abstract class Conta {
         this.numeroConta = numeroConta;
     }
 
-    public String getTipoConta() {
+    public TipoConta getTipoConta() {
         return tipoConta;
-    }
-
-    public void setTipoConta(String tipoConta) {
-        this.tipoConta = tipoConta;
     }
 
     public Cliente getCliente() {

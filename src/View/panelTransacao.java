@@ -1,14 +1,13 @@
 package View;
-
 import Controller.exceptionsController;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
-
 import Controller.transacaoController;
 import Model.Transacao;
 import Model.contaCorrente;
+
 
 import static View.panelConta.interfaceConta;
 
@@ -92,14 +91,16 @@ public class panelTransacao extends JDialog {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     String dataFormatada = dataTransacao.format(formatter);
 
+                    if(contaC.getSaldoAtual() >= valorTransacao) {
+
                     Transacao transacao = new Transacao(valorTransacao,contaOrigem,contaDestino,dataTransacao);
                     transacaoController transacaoController = new transacaoController();
                     transacaoController.adicionarTransacao(transacao);
 
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Transação efetuada com sucesso!"
-                    );
+                        JOptionPane.showMessageDialog(this, transacao.gerarRelatorio());
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Saldo insuficiente");
+                    }
 
                     dispose(); // Fecha o diálogo após o envio
 

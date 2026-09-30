@@ -12,6 +12,8 @@ import ModelDAO.conexaoDAO;
 
 import Model.Cliente;
 
+import javax.swing.*;
+
 public class clienteDAO {
     public String inserirCliente(Cliente cliente) {
 
@@ -38,8 +40,8 @@ public class clienteDAO {
 
             if (rs.next()) {
                 int idCliente = rs.getInt(1);
-
                 cliente.setIdCliente(idCliente);
+                System.out.println(cliente.getIdCliente());
 
             }
 
@@ -47,7 +49,7 @@ public class clienteDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("tudo errado");
+            JOptionPane.showMessageDialog(null, "Nao foi cadastrar-lo, tente novamente mais tarde.");
         }
 
         return sql;
@@ -68,8 +70,6 @@ public class clienteDAO {
 
 
             if (result.next()) {
-                System.out.println("Cliente encontrado");
-
                 Cliente cliente = new Cliente(result.getString("nome"), result.getString("cpf"), result.getString("endereco"), result.getString("email"), result.getString("senha"));
                 cliente.setIdCliente(result.getInt("idCliente"));
                 System.out.println(result.getInt("idCliente"));
@@ -78,11 +78,11 @@ public class clienteDAO {
                 return cliente;
 
             } else {
-                System.out.println("Cliente nao encontrado");
+                JOptionPane.showMessageDialog(null, "Nao foi possivel encontrar o usuário");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("tudo errado");
+            JOptionPane.showMessageDialog(null, "O usuário informado não existe");
         }
         return null;
     }
@@ -97,17 +97,18 @@ public class clienteDAO {
 
             stmt.setInt(1, cliente.getIdCliente());
 
-            System.out.println(cliente.getIdCliente());
-
             ResultSet result = stmt.executeQuery();
 
+
             if (result.next()) {
-                if (result.getString("tipo").equals("CORRENTE")) {
-                    contaCorrente contaCorrente = new contaCorrente(result.getInt("saldoAtual"), result.getString("tipo"), cliente);
+            Conta.TipoConta tipo = Conta.TipoConta.valueOf(result.getString("tipo"));
+                if (tipo == Conta.TipoConta.CORRENTE) {
+                    contaCorrente contaCorrente = new contaCorrente(result.getInt("saldoAtual"), tipo, cliente);
                     contaCorrente.gerarLimiteCredito();
+                    contaCorrente.setNumeroConta(result.getInt("numeroConta"));
                     return contaCorrente;
                 } else {
-                    contaPoupanca contaPoupanca = new contaPoupanca(result.getInt("saldoAtual"), result.getString("tipo"), cliente);
+                    contaPoupanca contaPoupanca = new contaPoupanca(result.getInt("saldoAtual"), tipo, cliente);
                     contaPoupanca.setNumeroConta(result.getInt("numeroConta"));
                     return contaPoupanca;
                 }

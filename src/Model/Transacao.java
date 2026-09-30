@@ -8,6 +8,7 @@ public class Transacao {
     private int contaOrigem;
     private long contaDestino;
     private LocalDateTime dataTransacao;
+    private String status;
 
 
     public Transacao(double valorTransacao, int contaOrigem, long contaDestino, LocalDateTime dataTransacao) {
@@ -55,4 +56,14 @@ public class Transacao {
     public void setIdTransacao(int idTransacao) {
         this.idTransacao = idTransacao;
     }
+
+    public String gerarRelatorio() {
+        return "Codigo: "+getIdTransacao()+
+                "Valor: "+getValor()+
+                "ContaOrigem: "+getContaOrigem()+
+                "ContaDestino: "+getContaDestino()+
+                "Data: "+getDataTransacao();
+
+    }
+
 }
