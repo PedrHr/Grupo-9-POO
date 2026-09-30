@@ -157,7 +157,7 @@ public class panelConta {
             //AÇÔES DE BOTÕES
             // AÇÃO DO BOTÃO REALIZAR TRANSAÇÃO (Abre a tela mantendo a atual aberta)
             botaoRealizarTransacao.addActionListener(e -> {
-                new panelTransacao(interfaceConta).setVisible(true);
+                new panelTransacao(interfaceConta, ContaCorrente).setVisible(true);
             });
 
             botaoEnviarDeposito.addActionListener(e -> {

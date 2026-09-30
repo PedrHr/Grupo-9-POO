@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
+import Model.Transacao;
+import Model.contaCorrente;
+
 public class panelTransacao extends JDialog {
 
     private JTextField txtValor;
@@ -13,7 +16,7 @@ public class panelTransacao extends JDialog {
     private JTextField txtDestino;
 
     // Construtor recebendo a janela pai (owner)
-    public panelTransacao(Frame owner) {
+    public panelTransacao(Frame owner, contaCorrente contaC) {
         super(owner, "Realizar Transação", true); // Modo MODAL ativado
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
@@ -31,17 +34,18 @@ public class panelTransacao extends JDialog {
 
         // 1. VALOR
         JLabel labelValor = new JLabel("Valor:");
-        txtValor = new JTextField(16);
+        JTextField txtValor = new JTextField(16);
         JPanel boxValor = criarBoxCampo(labelValor, txtValor);
 
         // 2. ORIGEM
         JLabel labelOrigem = new JLabel("Origem:");
-        txtOrigem = new JTextField(16);
+        JTextField txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
         JPanel boxOrigem = criarBoxCampo(labelOrigem, txtOrigem);
+
 
         // 3. DESTINO
         JLabel labelDestino = new JLabel("Destino:");
-        txtDestino = new JTextField(16);
+        JTextField txtDestino = new JTextField(16);
         JPanel boxDestino = criarBoxCampo(labelDestino, txtDestino);
 
         // ADICIONA OS CAMPOS AO PAINEL CENTRAL
@@ -65,7 +69,9 @@ public class panelTransacao extends JDialog {
 
         // AÇÃO DO BOTÃO ENVIAR
         btnEnviar.addActionListener(e -> {
-            String strValor = txtValor.getText().trim();
+
+
+            Double strValor = txtValor.getText().trim();
             String strOrigem = txtOrigem.getText().trim();
             String strDestino = txtDestino.getText().trim();
 
@@ -75,7 +81,7 @@ public class panelTransacao extends JDialog {
             } else {
                 try {
                     double valorTransacao = Double.parseDouble(strValor.replace(",", "."));
-                    long contaOrigem = Long.parseLong(strOrigem);
+                    int contaOrigem = Long.parseLong(strOrigem);
                     long contaDestino = Long.parseLong(strDestino);
 
                     // MOMENTO EM QUE A TRANSAÇÃO FOI EFETUADA
@@ -83,8 +89,7 @@ public class panelTransacao extends JDialog {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     String dataFormatada = dataTransacao.format(formatter);
 
-                    // AQUI VOCÊ PODE INSTANCIAR O SEU CONTROLLER / MODELO:
-                    // Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
+                    Transacao transacao = new Transacao(valorTransacao,contaOrigem,contaDestino,dataTransacao);
 
                     JOptionPane.showMessageDialog(
                             this,
