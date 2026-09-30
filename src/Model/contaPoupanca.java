@@ -7,6 +7,7 @@ public class contaPoupanca extends Conta {
     public contaPoupanca(double saldoAtual, String tipoConta, Cliente cliente) {
 
         super(saldoAtual, tipoConta, cliente);
+
     }
 
     public void aplicarRendimento() {

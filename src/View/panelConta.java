@@ -1,5 +1,9 @@
 package View;
 
+import Model.Cliente;
+import Model.Conta;
+import Model.contaCorrente;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -7,9 +11,9 @@ public class panelConta {
 
     static JFrame interfaceConta;
 
-    public static void exibir() {
+    public static void exibir(Cliente cliente, contaCorrente ContaCorrente) {
         if (interfaceConta == null) {
-            interfaceConta = new JFrame("Conta");
+            interfaceConta = new JFrame("Conta Corrente");
 
             // PAINEL PRINCIPAL
             JPanel painel = new JPanel();
@@ -28,10 +32,11 @@ public class panelConta {
             labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelUsuario);
 
-            JTextField campoUsuario = new JTextField();
+            JTextField campoUsuario = new JTextField(cliente.getNome());
             campoUsuario.setBounds(160, 78, 250, 30);
             campoUsuario.setEditable(false);
             campoUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+            campoUsuario.setText(cliente.getNome());
             painel.add(campoUsuario);
 
             JLabel labelSaldo = new JLabel("Saldo:");
@@ -39,11 +44,12 @@ public class panelConta {
             labelSaldo.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelSaldo);
 
-            JTextField campoSaldo = new JTextField();
+            JTextField campoSaldo = new JTextField(String.valueOf(ContaCorrente.getSaldoAtual()));
             campoSaldo.setBounds(160, 123, 250, 30);
             campoSaldo.setEditable(false);
             campoSaldo.setBackground(new Color(225, 230, 238));
             campoSaldo.setFont(new Font("Arial", Font.PLAIN, 14));
+
             painel.add(campoSaldo);
 
             JLabel labelLimite = new JLabel("Limite crédito:");
@@ -51,7 +57,7 @@ public class panelConta {
             labelLimite.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelLimite);
 
-            JTextField campoLimiteCredito = new JTextField();
+            JTextField campoLimiteCredito = new JTextField(String.valueOf(ContaCorrente.getLimiteCredito()));
             campoLimiteCredito.setBounds(160, 168, 250, 30);
             campoLimiteCredito.setEditable(false);
             campoLimiteCredito.setBackground(new Color(225, 230, 238));
@@ -138,7 +144,5 @@ public class panelConta {
         interfaceConta.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> exibir());
-    }
+
 }

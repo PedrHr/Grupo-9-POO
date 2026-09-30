@@ -6,9 +6,8 @@ public class contaCorrente extends Conta {
     private double limiteCredito;
     private long chaveTransacao;
 
-    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente, double limiteCredito) {
+    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente) {
         super(saldoAtual, tipoConta, cliente);
-        this.limiteCredito = limiteCredito;
     }
 
     @Override

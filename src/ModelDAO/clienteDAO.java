@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Model.Conta;
+import Model.contaCorrente;
+import Model.contaPoupanca;
 import ModelDAO.conexaoDAO;
 
 import Model.Cliente;
@@ -70,7 +73,9 @@ public class clienteDAO {
                 System.out.println("Cliente encontrado");
 
                 Cliente cliente = new Cliente(result.getString("nome"), result.getString("cpf"), result.getString("endereco"), result.getString("email"), result.getString("senha"));
-
+                cliente.setIdCliente(result.getInt("idCliente"));
+                System.out.println(result.getInt("idCliente"));
+                System.out.println(cliente.getIdCliente());
                 stmt.close();
                 return cliente;
 
@@ -84,35 +89,33 @@ public class clienteDAO {
         return null;
     }
 
-    public String buscarContaCliente(int idCliente) {
-        String sql = "SELECT ct.tipo FROM Cliente AS c JOIN Conta AS ct ON c.idCliente = ct.idcliente_cliente WHERE c.idCliente = ? ";
-        PreparedStatement stmt = null;
+    public Conta buscarContaCliente(Cliente cliente) {
 
+        String sql = "SELECT * FROM Conta WHERE idcliente_cliente = ?";
 
         try {
-            stmt = conexaoDAO.getConexao().prepareStatement(sql);
+            PreparedStatement stmt =
+                    conexaoDAO.getConexao().prepareStatement(sql);
 
-            stmt.setInt(1, idCliente);
+            stmt.setInt(1, cliente.getIdCliente());
 
             ResultSet result = stmt.executeQuery();
 
-
             if (result.next()) {
-                System.out.println("Cliente encontrado");
-
-                String tipoConta = result.getString("tipo");
-                System.out.println("tipoConta: " + tipoConta);
-
-                stmt.close();
-                return tipoConta;
-
-            } else {
-                System.out.println("Cliente nao encontrado");
+                if (result.getString("tipo").equals("CORRENTE")) {
+                    contaCorrente contaCorrente = new contaCorrente(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    return contaCorrente;
+                } else {
+                    contaPoupanca contaPoupanca = new contaPoupanca(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    return contaPoupanca;
+                }
             }
+            stmt.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("tudo errado");
         }
+
         return null;
     }
 }

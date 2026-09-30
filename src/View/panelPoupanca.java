@@ -1,5 +1,9 @@
 package View;
 
+import Model.Cliente;
+import Model.Conta;
+import Model.contaPoupanca;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -7,7 +11,7 @@ public class panelPoupanca {
 
     static JFrame interfaceConta;
 
-    public static void exibir() {
+    public static void exibir(Cliente cliente, contaPoupanca contaP) {
         if (interfaceConta == null) {
             interfaceConta = new JFrame("Conta Poupança");
 
@@ -114,7 +118,4 @@ public class panelPoupanca {
         interfaceConta.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> exibir());
-    }
 }

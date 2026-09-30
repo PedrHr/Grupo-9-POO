@@ -44,7 +44,7 @@ public class contaDAO {
                 sql = "INSERT INTO CONTACORRENTE (IDCONTACORRENTE, LIMITECREDITO) VALUES (?,?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
-
+                corrente.setLimiteCredito(conta.getSaldoAtual() /2);
                 stmt.setInt(1, conta.getNumeroConta());
                 stmt.setDouble(2, corrente.getLimiteCredito());
 
