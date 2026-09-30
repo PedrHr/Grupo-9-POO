@@ -2,8 +2,11 @@ package View;
 
 import Controller.clienteController;
 import Controller.contaCorrenteController;
+import Controller.contaPoupancaController;
 import Model.Cliente;
 import Model.contaCorrente;
+import Model.contaPoupanca;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -221,7 +224,9 @@ public class panelRegistro extends JFrame {
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
                 } else {
-                    System.out.println("oi");
+                    contaCorrente poupanca = new contaPoupanca(0,"CORRENTE", cliente);
+                    contaPoupancaController inserirPoupanca = new contaPoupancaController();
+                    inserirPoupanca.inserirConta(poupanca);
                 }
 
                 // Fecha a tela de registro e chama a tela de login na Thread de eventos do Swing
