@@ -32,17 +32,15 @@ public class clienteDAO {
 
             stmt.executeUpdate();
 
-            // Recupera o ID gerado pelo AUTO_INCREMENT
+            // Recupera o id
 
             ResultSet rs = stmt.getGeneratedKeys();
 
             if (rs.next()) {
                 int idCliente = rs.getInt(1);
 
-                System.out.println("ID GERADO PELO MYSQL: " + idCliente);
                 cliente.setIdCliente(idCliente);
 
-                System.out.println("ID GERADO PELO MYSQL: " + idCliente);
             }
 
             stmt.close();
@@ -105,11 +103,11 @@ public class clienteDAO {
 
             if (result.next()) {
                 if (result.getString("tipo").equals("CORRENTE")) {
-                    contaCorrente contaCorrente = new contaCorrente(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    contaCorrente contaCorrente = new contaCorrente(result.getString("tipo"), cliente);
                     contaCorrente.setNumeroConta(result.getInt("numeroConta"));
                     return contaCorrente;
                 } else {
-                    contaPoupanca contaPoupanca = new contaPoupanca(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    contaPoupanca contaPoupanca = new contaPoupanca(result.getString("tipo"), cliente);
                     contaPoupanca.setNumeroConta(result.getInt("numeroConta"));
                     return contaPoupanca;
                 }

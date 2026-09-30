@@ -2,17 +2,16 @@ package Model;
 
 public class contaPoupanca extends Conta {
 
-    private double taxaRendimento;
+    private double taxaRendimento = 0.010;
 
-    public contaPoupanca(double saldoAtual, String tipoConta, Cliente cliente) {
+    public contaPoupanca(String tipoConta, Cliente cliente) {
 
-        super(saldoAtual, tipoConta, cliente);
+        super(tipoConta, cliente);
 
     }
 
     public void aplicarRendimento() {
         double rendimento = getSaldoAtual() * taxaRendimento;
-        setSaldoAtual(rendimento);
     }
 
     public double getTaxaRendimento() {
@@ -20,7 +19,4 @@ public class contaPoupanca extends Conta {
 
     }
 
-    public void setTaxaRendimento(double taxaRendimento) {
-        this.taxaRendimento = taxaRendimento;
-    }
 }

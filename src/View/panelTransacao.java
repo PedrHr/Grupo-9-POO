@@ -10,6 +10,8 @@ import Controller.transacaoController;
 import Model.Transacao;
 import Model.contaCorrente;
 
+import static View.panelConta.interfaceConta;
+
 public class panelTransacao extends JDialog {
 
     private JTextField txtValor;
@@ -96,12 +98,7 @@ public class panelTransacao extends JDialog {
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Transação efetuada com sucesso!\n\n"
-                            + "Valor: R$ " + String.format("%.2f", valorTransacao) + "\n"
-                            + "Origem: " + contaOrigem + "\n"
-                            + "Destino: " + contaDestino + "\n"
-                            + "Data/Hora: " + dataFormatada,
-                            "Sucesso",
+                            "Transação efetuada com sucesso!";
                             JOptionPane.INFORMATION_MESSAGE
                     );
 

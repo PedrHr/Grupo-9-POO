@@ -8,7 +8,7 @@ public class Cliente {
     private String email;
     private String senha;
 
-    public Cliente(String nome, String cpf, String endereco, String email, String senha ){
+    public Cliente(String nome, String cpf, String endereco, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -16,64 +16,45 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public  int getIdCliente()
-    {
+    public int getIdCliente() {
         return idCliente;
     }
 
     public void setIdCliente(int idCliente) {
+        if ( idCliente <=0){
+            System.out.println("Não foi possivel gerar sua conta");
+    }else{
         this.idCliente = idCliente;
     }
-
-    public  String getNome() {
-
-        return nome;
-    }
-
-    public void setNome(String nome) {
-
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-
-        return email;
-    }
-
-    public void setEmail(String email) {
-
-        this.email = email;
-    }
-
-    public String getSenha() {
-
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-
-        this.senha = senha;
-    }
-    public String getEndereco() {
-
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-
-        this.endereco = endereco;
-    }
+}
 
 
+public String getNome() {
+
+    return nome;
+}
+
+
+public String getCpf() {
+
+    return cpf;
+}
+
+
+public String getEmail() {
+
+    return email;
+}
+
+public String getSenha() {
+
+    return senha;
+}
+
+
+public String getEndereco() {
+
+    return endereco;
+}
 
 }

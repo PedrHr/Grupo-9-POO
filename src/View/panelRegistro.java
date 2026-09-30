@@ -223,18 +223,13 @@ public class panelRegistro extends JFrame {
                 clienteController cadastrarCliente = new clienteController();
                 cadastrarCliente.inserirCliente(cliente);
 
-                if (cliente.getIdCliente() == 0) {
-                    JOptionPane.showMessageDialog(this, "Não foi possivel criar a conta!.");
-                    return;
-                }
-
                 //salva conta no banco
                 if (radioCorrente.isSelected()) {
-                    contaCorrente corrente = new contaCorrente(0,"CORRENTE", cliente);
+                    contaCorrente corrente = new contaCorrente("CORRENTE", cliente);
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
                 } else {
-                    contaPoupanca poupanca = new contaPoupanca(0,"POUPANCA", cliente);
+                    contaPoupanca poupanca = new contaPoupanca("POUPANCA", cliente);
                     contaPoupancaController inserirPoupanca = new contaPoupancaController();
                     inserirPoupanca.inserirConta(poupanca);
                 }

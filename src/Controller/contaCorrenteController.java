@@ -24,6 +24,10 @@ public String adicionarChaveTransacao(contaCorrente ContaCorrente){
     contaDAO contaDAO = new contaDAO();
     return contaDAO.adicionarChaveTransacao(ContaCorrente);
 }
+public String avisoSaldoInsuficiente(){
+    return "Seu saldo é insuficiente para prosseguir com a operação";
+}
+
 
 
 }

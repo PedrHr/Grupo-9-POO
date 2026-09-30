@@ -158,6 +158,8 @@ public class panelConta {
             // AÇÃO DO BOTÃO REALIZAR TRANSAÇÃO (Abre a tela mantendo a atual aberta)
             botaoRealizarTransacao.addActionListener(e -> {
                 new panelTransacao(interfaceConta, ContaCorrente).setVisible(true);
+
+
             });
 
             botaoEnviarDeposito.addActionListener(e -> {
@@ -176,12 +178,12 @@ public class panelConta {
 
             btnSacar.addActionListener(e -> {
                 double Saque = Double.parseDouble(campoSacar.getText());
-                ContaCorrente.sacarValor(Saque);
+               String msgSaque = ContaCorrente.sacarValor(Saque);
                 System.out.println(ContaCorrente.getSaldoAtual());
                 contaCorrenteController controllCorrente = new contaCorrenteController();
                 String mensagemSaque = controllCorrente.sacarValor(ContaCorrente);
 
-                JOptionPane.showMessageDialog(null, mensagemSaque);
+                JOptionPane.showMessageDialog(null, msgSaque);
 
                 interfaceConta.dispose();
                 interfaceConta = null;

@@ -44,9 +44,10 @@ public class contaDAO {
                 sql = "INSERT INTO CONTACORRENTE (IDCONTACORRENTE, LIMITECREDITO) VALUES (?,?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
-                corrente.setLimiteCredito(conta.getSaldoAtual() /2);
+                corrente.gerarLimiteCredito();
+                double limite = corrente.getLimiteCredito();
                 stmt.setInt(1, conta.getNumeroConta());
-                stmt.setDouble(2, corrente.getLimiteCredito());
+                stmt.setDouble(2, limite);
 
                 stmt.executeUpdate();
 
@@ -61,7 +62,6 @@ public class contaDAO {
                 sql = "INSERT INTO CONTAPOUPANCA (idContaPoupanca, taxaRendimento) VALUES (?, ?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
-                poupanca.setTaxaRendimento(0.010);
                 stmt.setInt(1, conta.getNumeroConta());
                 stmt.setDouble(2, poupanca.getTaxaRendimento());
 

@@ -1,14 +1,14 @@
 package Model;
 
+import javax.swing.*;
+
 public abstract class Conta {
     private int numeroConta;
-    private double saldoAtual;
+    private double saldoAtual = 0;
     private String tipoConta;
     private Cliente cliente;
 
-
-    public Conta(double saldoAtual, String tipoConta, Cliente cliente) {
-        this.saldoAtual = saldoAtual;
+    public Conta(String tipoConta, Cliente cliente) {
         this.tipoConta = tipoConta;
         this.cliente = cliente;
     }
@@ -16,25 +16,20 @@ public abstract class Conta {
     public void depositarValor(double valorDeposito){
         if(valorDeposito > 0) {
 
-            setSaldoAtual(getSaldoAtual() + valorDeposito);
+            this.saldoAtual = (getSaldoAtual() + valorDeposito);
 
         }
     }
 
-    public void sacarValor(double valorSacar) {
+    public String sacarValor(double valorSacar) {
         if(valorSacar > 0 && saldoAtual >= valorSacar) {
             if(this.saldoAtual >= valorSacar) {
                 this.saldoAtual -= valorSacar;
             }
+        }else {
+            return "Seu é Saldo insuficiente para prosseguir com a operação";
         }
-    }
-
-    public double getSaldoAtual() {
-        return saldoAtual;
-    }
-
-    public void setSaldoAtual(double saldoAtual) {
-        this.saldoAtual = saldoAtual;
+        return "Saldo sacado com sucesso!";
     }
 
     public int getNumeroConta() {
@@ -59,5 +54,12 @@ public abstract class Conta {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public double getSaldoAtual(){
+        return saldoAtual;
+    }
+    public void diminuirSaldo(double valor) {
+        saldoAtual -= valor;
     }
 }
