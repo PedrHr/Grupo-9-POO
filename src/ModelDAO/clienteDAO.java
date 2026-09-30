@@ -99,6 +99,8 @@ public class clienteDAO {
 
             stmt.setInt(1, cliente.getIdCliente());
 
+            System.out.println(cliente.getIdCliente());
+
             ResultSet result = stmt.executeQuery();
 
             if (result.next()) {

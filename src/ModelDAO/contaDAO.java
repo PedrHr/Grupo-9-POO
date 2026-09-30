@@ -61,7 +61,7 @@ public class contaDAO {
                 sql = "INSERT INTO CONTAPOUPANCA (idContaPoupanca, taxaRendimento) VALUES (?, ?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
-
+                poupanca.setTaxaRendimento(0.010);
                 stmt.setInt(1, conta.getNumeroConta());
                 stmt.setDouble(2, poupanca.getTaxaRendimento());
 
