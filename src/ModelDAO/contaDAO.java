@@ -102,4 +102,29 @@ public class contaDAO {
             return "Erro ao depositar valor na conta";
         }
     }
+
+    public String sacarvalor(Conta conta) {
+
+        System.out.println(conta.getSaldoAtual());
+        String sql = "UPDATE CONTA SET saldoAtual = ? WHERE numeroConta = ?";
+
+        System.out.println(conta.getNumeroConta());
+
+        try {
+            PreparedStatement stmt = conexaoDAO.getConexao().prepareStatement(sql);
+
+            stmt.setDouble(1, conta.getSaldoAtual());
+            stmt.setInt(2, conta.getNumeroConta());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            return "Valor sacada da sua conta com sucesso!";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Erro ao depositar valor na conta";
+        }
+    }
 }

@@ -16,9 +16,9 @@ public String inserirDeposito(contaCorrente ContaCorrente){
     contaDAO contaDAO = new contaDAO();
     return contaDAO.inserirDeposito(ContaCorrente);
 }
-public String sacarValorDeposito(contaCorrente ContaCorrente){
+public String sacarValor(contaCorrente ContaCorrente){
     contaDAO contaDAO = new contaDAO();
-    return contaDAO.inserirDeposito(ContaCorrente);
+    return contaDAO.sacarvalor(ContaCorrente);
 }
 
 
