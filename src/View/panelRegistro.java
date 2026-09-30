@@ -224,7 +224,7 @@ public class panelRegistro extends JFrame {
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
                 } else {
-                    contaCorrente poupanca = new contaPoupanca(0,"CORRENTE", cliente);
+                    contaPoupanca poupanca = new contaPoupanca(0,"CORRENTE", cliente);
                     contaPoupancaController inserirPoupanca = new contaPoupancaController();
                     inserirPoupanca.inserirConta(poupanca);
                 }
