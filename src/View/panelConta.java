@@ -95,8 +95,6 @@ public class panelConta {
             painel.add(campoDepositar);
 
 
-
-
             JButton botaoEnviarDeposito = new JButton("Enviar deposito");
             botaoEnviarDeposito.setBounds(40, 360, 250, 20);
             botaoEnviarDeposito.setFont(new Font("Arial", Font.BOLD, 14));
@@ -140,8 +138,18 @@ public class panelConta {
             botaoGerarChave.setFocusPainted(false);
             painel.add(botaoGerarChave);
 
+            JLabel labelChave = new JLabel("Chave:");
+            labelSacar.setBounds(40, 620, 120, 25);
+            labelSacar.setFont(new Font("Arial", Font.BOLD, 14));
+            painel.add(labelSacar);
+
+            JTextField campoChave = new JTextField(String.valueOf(ContaCorrente.getChaveTransacao()));
+            campoSacar.setBounds(160, 618, 250, 30);
+            campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
+            painel.add(campoChave);
+
             JButton botaoRealizarTransacao = new JButton("Realizar Transação");
-            botaoRealizarTransacao.setBounds(40, 620, 370, 40);
+            botaoRealizarTransacao.setBounds(40, 680, 370, 40);
             botaoRealizarTransacao.setFont(new Font("Arial", Font.BOLD, 14));
             botaoRealizarTransacao.setBackground(new Color(20, 55, 100));
             botaoRealizarTransacao.setForeground(Color.WHITE);
@@ -149,7 +157,7 @@ public class panelConta {
             painel.add(botaoRealizarTransacao);
 
             JButton botaoVerExtrato = new JButton("Ver Extrato");
-            botaoVerExtrato.setBounds(40, 670, 370, 40);
+            botaoVerExtrato.setBounds(40, 720, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
             botaoVerExtrato.setBackground(new Color(20, 55, 100));
             botaoVerExtrato.setForeground(Color.WHITE);
@@ -190,10 +198,19 @@ public class panelConta {
                 exibir(cliente, ContaCorrente);
                     });
 
+                botaoGerarChave.addActionListener(e -> {
+
+                JOptionPane.showMessageDialog(null, mensagemSaque);
+                long chave = ContaCorrente.gerarChaveTransacao();
+                interfaceConta.dispose();
+                interfaceConta = null;
+                exibir(cliente, ContaCorrente);
+                    });
+
 
             // CONFIGURAÇÃO DA JANELA
             interfaceConta.setContentPane(painel);
-            interfaceConta.setSize(580, 770);
+            interfaceConta.setSize(580, 820);
             interfaceConta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             interfaceConta.setLocationRelativeTo(null);
             interfaceConta.setResizable(false);

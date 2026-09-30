@@ -27,8 +27,8 @@ public class contaCorrente extends Conta {
         }
     }
 
-    public void gerarChaveTransacao() {
-        this.chaveTransacao = System.currentTimeMillis();
+    public long gerarChaveTransacao() {
+        return  this.chaveTransacao = System.currentTimeMillis();
     }
 
     public double getLimiteCredito() {
@@ -39,4 +39,11 @@ public class contaCorrente extends Conta {
         this.limiteCredito = limiteCredito;
     }
 
+    public long getChaveTransacao() {
+        return chaveTransacao;
+    }
+
+    public void setChaveTransacao(long chaveTransacao) {
+        this.chaveTransacao = chaveTransacao;
+    }
 }
