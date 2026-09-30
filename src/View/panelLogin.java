@@ -5,7 +5,6 @@ import Model.Cliente;
 import Model.Conta;
 import Model.contaCorrente;
 import Model.contaPoupanca;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +15,7 @@ public class panelLogin extends JFrame {
     private JTextField email;
     private JPasswordField senha;
 
-    // avisos de erro em vermelho
+    //avisos de erro
     private JLabel erroEmail;
     private JLabel erroSenha;
 
@@ -25,15 +24,21 @@ public class panelLogin extends JFrame {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // painel principal
+        //painel principal
         JPanel painelPrincipal = new JPanel(new BorderLayout(10, 15));
         painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        // painel centralizado pra alinhar os campos verticalmente no meio
+        //titulo da tela
+        JLabel tituloLogin = new JLabel("LOGIN");
+        tituloLogin.setFont(new Font("Arial", Font.BOLD, 24));
+        tituloLogin.setForeground(new Color(20, 55, 100));
+        tituloLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //painel do centro
         JPanel painelCentral = new JPanel();
         painelCentral.setLayout(new BoxLayout(painelCentral, BoxLayout.Y_AXIS));
 
-        // email
+        //campo email
         JLabel labelEmail = new JLabel("E-mail:");
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
         email = new JTextField(20);
@@ -41,7 +46,7 @@ public class panelLogin extends JFrame {
         erroEmail = criarLabelErro();
         JPanel boxEmail = criarBoxCampo(labelEmail, email, erroEmail);
 
-        // senha e olho
+        //campo senha
         JLabel labelSenha = new JLabel("Senha:");
         labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         senha = new JPasswordField(16);
@@ -69,35 +74,30 @@ public class panelLogin extends JFrame {
         erroSenha = criarLabelErro();
         JPanel boxSenha = criarBoxCampo(labelSenha, painelSenhaInput, erroSenha);
 
-        // LINK PARA REGISTRO
-        JLabel lblRegistro = new JLabel("<html><u>Não tem conta? Crie a sua aqui.</u></html>");
+        //link de registro
+        JLabel lblRegistro = new JLabel("<html><u>Não tem conta? Crie a sua aqui.</u></html>", SwingConstants.CENTER);
         lblRegistro.setForeground(new Color(0, 102, 204));
         lblRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        lblRegistro.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         lblRegistro.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                dispose(); // Fecha o Login
-                
-                // Se o seu panelRegistro usar método estático exibir():
-                // panelRegistro.exibir();
-                
-                // Ou se for um JFrame/JPanel instanciado diretamente:
+                dispose();
+                //abre tela de registro
                 new panelRegistro();
             }
         });
 
-        // espaçador em cima pra empurrar pro centro
+        //espaçadores e organizacao dos campos
         painelCentral.add(Box.createVerticalGlue());
+        painelCentral.add(tituloLogin);
+        painelCentral.add(Box.createRigidArea(new Dimension(0, 20)));
         painelCentral.add(boxEmail);
         painelCentral.add(Box.createRigidArea(new Dimension(0, 10)));
         painelCentral.add(boxSenha);
-        painelCentral.add(Box.createRigidArea(new Dimension(0, 5)));
-        painelCentral.add(lblRegistro);
         painelCentral.add(Box.createVerticalGlue());
 
-        // botoes entrar e cancelar
+        //botoes
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         JButton btnEntrar = new JButton("Entrar");
         JButton btnCancelar = new JButton("Cancelar");
@@ -108,10 +108,15 @@ public class panelLogin extends JFrame {
         painelBotoes.add(btnEntrar);
         painelBotoes.add(btnCancelar);
 
-        // BOTÃO CANCELAR: Encerra o aplicativo
+        //painel inferior agrupando link e botoes
+        JPanel painelSul = new JPanel(new BorderLayout(0, 10));
+        painelSul.add(lblRegistro, BorderLayout.NORTH);
+        painelSul.add(painelBotoes, BorderLayout.SOUTH);
+
+        //acao do botao cancelar
         btnCancelar.addActionListener(e -> System.exit(0));
 
-        // AÇÃO DO BOTÃO ENTRAR (Verifica credencial mock/fictícia e depois o banco)
+        //acao do botao entrar
         btnEntrar.addActionListener(e -> {
             limparErros();
 
@@ -126,14 +131,14 @@ public class panelLogin extends JFrame {
                     erroSenha.setText("Preencha a senha");
                 }
             } else {
-                // 1. Validação temporária/mock
+                //validacao de teste
                 if (emailLogin.equalsIgnoreCase("samuel@gmail.com") && senhaLogin.equals("senhalouca")) {
                     dispose();
-                    // panelConta.exibir();
+                    //panelConta.exibir();
                     return;
                 }
 
-                // 2. Validação no banco de dados via controller
+                //validacao no banco
                 clienteController controllCliente = new clienteController();
                 Cliente cliente = controllCliente.buscarCliente(emailLogin, senhaLogin);
 
@@ -154,7 +159,7 @@ public class panelLogin extends JFrame {
         });
 
         painelPrincipal.add(painelCentral, BorderLayout.CENTER);
-        painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
+        painelPrincipal.add(painelSul, BorderLayout.SOUTH);
 
         add(painelPrincipal);
 
@@ -163,7 +168,7 @@ public class panelLogin extends JFrame {
         setVisible(true);
     }
 
-    // monta label de erro
+    //monta label de erro
     private JLabel criarLabelErro() {
         JLabel label = new JLabel(" ");
         label.setForeground(Color.RED);
@@ -172,7 +177,7 @@ public class panelLogin extends JFrame {
         return label;
     }
 
-    // junta label, campo e erro na vertical (tudo centralizado)
+    //junta componentes do campo
     private JPanel criarBoxCampo(JLabel label, JComponent campo, JLabel labelErro) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -189,7 +194,7 @@ public class panelLogin extends JFrame {
         return panel;
     }
 
-    // reseta avisos
+    //reseta mensagens de erro
     private void limparErros() {
         erroEmail.setText(" ");
         erroSenha.setText(" ");
