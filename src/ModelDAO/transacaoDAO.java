@@ -6,37 +6,89 @@ import Model.Transacao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 
 public class transacaoDAO {
-    public String inserirTransacao(Transacao transacao){
+    public String inserirTransacao(Transacao transacao) {
 
-        String sql = "INSERT INTO TRANSACAO (VALOR, CONTAORIGEM, CONTADESTINO, DATA) VALUES (?,?,?,?)";
-        PreparedStatement stmt = null;
+        String sqlBuscarContaDestino = "SELECT idContaCorrente FROM contaCorrente WHERE chaveTransacao = ?";
 
+        String sql = "INSERT INTO Transacao (valor, contaOrigem, contaDestino, dataTransacao) VALUES (?, ?, ?, ?)";
+
+        String sqlSaldoOrigem = "UPDATE Conta SET saldoAtual = saldoAtual - ? WHERE numeroConta = ?";
+
+        String sqlSaldoDestino = "UPDATE Conta SET saldoAtual = saldoAtual + ? WHERE numeroConta = ?";
 
         try {
-            stmt = conexaoDAO.getConexao().prepareStatement(sql);
+
+            // Buscar a conta destino pela chave
+            PreparedStatement stmtBusca = conexaoDAO.getConexao().prepareStatement(sqlBuscarContaDestino);
+
+            stmtBusca.setLong(1, transacao.getContaDestino());
+
+            ResultSet result = stmtBusca.executeQuery();
+
+            if (!result.next()) {
+                return "Conta destino não encontrada.";
+            }
+
+            int idContaDestino = result.getInt("idContaCorrente");
+
+            System.out.println(idContaDestino);
+
+            PreparedStatement stmt =
+                    conexaoDAO.getConexao().prepareStatement(
+                            sql,
+                            Statement.RETURN_GENERATED_KEYS
+                    );
 
             stmt.setDouble(1, transacao.getValor());
             stmt.setInt(2, transacao.getContaOrigem());
-            stmt.setLong(3, transacao.getContaDestino());
+            stmt.setInt(3, idContaDestino);
             stmt.setObject(4, transacao.getDataTransacao());
 
-            ResultSet rs = stmt.executeQuery();
+            int linhasInsert = stmt.executeUpdate();
 
-            if (rs.next()) {
-                transacao.setIdTransacao(rs.getInt("idTransacao"));
+            // Pegar id
+            ResultSet keys = stmt.getGeneratedKeys();
+
+            if (keys.next()) {
+
+                int idGerado = keys.getInt(1);
+
+                transacao.setIdTransacao(idGerado);
+
+            } else {
+                System.out.println("Não foi gerado id para a transação.");
             }
 
-            stmt.close();
+            // Tirar dinheiro da conta origem
+            PreparedStatement stmtOrigem = conexaoDAO.getConexao().prepareStatement(sqlSaldoOrigem);
 
+            stmtOrigem.setDouble(1, transacao.getValor());
+            stmtOrigem.setInt(2, transacao.getContaOrigem());
 
+            int linhasOrigem = stmtOrigem.executeUpdate();
+
+            // Adicionar slado na conta destino
+            PreparedStatement stmtDestino = conexaoDAO.getConexao().prepareStatement(sqlSaldoDestino);
+
+            stmtDestino.setDouble(1, transacao.getValor());
+            stmtDestino.setInt(2, idContaDestino);
+
+            int linhasDestino = stmtDestino.executeUpdate();
+
+            return "Transação realizada com sucesso.";
 
         } catch (SQLException e) {
+
+            System.out.println("Erro transação");
             e.printStackTrace();
-            return System.out.println("tudo não foi possivel efetuar a transação");
+
+            return "Erro ao realizar transação.";
+
         }
-        return null;
     }
-}
+
+    }

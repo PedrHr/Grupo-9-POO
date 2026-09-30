@@ -296,6 +296,7 @@ public class panelRegistro extends JFrame {
     }
 
     public static void main(String[] args) {
+
         new panelRegistro();
     }
 }

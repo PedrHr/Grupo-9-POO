@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
+import Controller.transacaoController;
 import Model.Transacao;
 import Model.contaCorrente;
 
@@ -34,18 +35,18 @@ public class panelTransacao extends JDialog {
 
         // 1. VALOR
         JLabel labelValor = new JLabel("Valor:");
-        JTextField txtValor = new JTextField(16);
+       txtValor = new JTextField(16);
         JPanel boxValor = criarBoxCampo(labelValor, txtValor);
 
         // 2. ORIGEM
         JLabel labelOrigem = new JLabel("Origem:");
-        JTextField txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
+       txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
         JPanel boxOrigem = criarBoxCampo(labelOrigem, txtOrigem);
 
 
         // 3. DESTINO
         JLabel labelDestino = new JLabel("Destino:");
-        JTextField txtDestino = new JTextField(16);
+         txtDestino = new JTextField(16);
         JPanel boxDestino = criarBoxCampo(labelDestino, txtDestino);
 
         // ADICIONA OS CAMPOS AO PAINEL CENTRAL
@@ -71,7 +72,7 @@ public class panelTransacao extends JDialog {
         btnEnviar.addActionListener(e -> {
 
 
-            Double strValor = txtValor.getText().trim();
+            String strValor = txtValor.getText().trim();
             String strOrigem = txtOrigem.getText().trim();
             String strDestino = txtDestino.getText().trim();
 
@@ -80,8 +81,8 @@ public class panelTransacao extends JDialog {
                 JOptionPane.showMessageDialog(this, exceptionsController.camposVazios(), "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
                 try {
-                    double valorTransacao = Double.parseDouble(strValor.replace(",", "."));
-                    int contaOrigem = Long.parseLong(strOrigem);
+                    double valorTransacao = Double.parseDouble(strValor);
+                    int contaOrigem = Integer.parseInt(strOrigem);
                     long contaDestino = Long.parseLong(strDestino);
 
                     // MOMENTO EM QUE A TRANSAÇÃO FOI EFETUADA
@@ -90,6 +91,8 @@ public class panelTransacao extends JDialog {
                     String dataFormatada = dataTransacao.format(formatter);
 
                     Transacao transacao = new Transacao(valorTransacao,contaOrigem,contaDestino,dataTransacao);
+                    transacaoController transacaoController = new transacaoController();
+                    transacaoController.adicionarTransacao(transacao);
 
                     JOptionPane.showMessageDialog(
                             this,
@@ -141,12 +144,9 @@ public class panelTransacao extends JDialog {
     }
 
     // Método estático para ser chamado na panelConta
-    public static void exibir(JFrame owner) {
-        panelTransacao dialog = new panelTransacao(owner);
+    public static void exibir(JFrame owner, contaCorrente contaC) {
+        panelTransacao dialog = new panelTransacao(owner, contaC);
         dialog.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        panelTransacao.exibir(null);
-    }
 }

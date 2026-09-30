@@ -9,9 +9,10 @@ public class Transacao {
     private long contaDestino;
     private LocalDateTime dataTransacao;
 
+
     public Transacao(double valorTransacao, int contaOrigem, long contaDestino, LocalDateTime dataTransacao) {
-        this.valor = valor;
-        this.contaDestino = contaOrigem;
+        this.valor = valorTransacao;
+        this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
         this.dataTransacao = dataTransacao;
     }
