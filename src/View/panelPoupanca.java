@@ -1,5 +1,9 @@
 package View;
 
+import Model.Cliente;
+import Model.Conta;
+import Model.contaPoupanca;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -7,7 +11,7 @@ public class panelPoupanca {
 
     static JFrame interfaceConta;
 
-    public static void exibir() {
+    public static void exibir(Cliente cliente, contaPoupanca contaP) {
         if (interfaceConta == null) {
             interfaceConta = new JFrame("Conta Poupança");
 
@@ -28,7 +32,7 @@ public class panelPoupanca {
             labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelUsuario);
 
-            JTextField campoUsuario = new JTextField();
+            JTextField campoUsuario = new JTextField(cliente.getNome());
             campoUsuario.setBounds(160, 78, 250, 30);
             campoUsuario.setEditable(false);
             campoUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -39,7 +43,7 @@ public class panelPoupanca {
             labelSaldo.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelSaldo);
 
-            JTextField campoSaldo = new JTextField();
+            JTextField campoSaldo = new JTextField(String.valueOf(contaP.getSaldoAtual()));
             campoSaldo.setBounds(160, 123, 250, 30);
             campoSaldo.setEditable(false);
             campoSaldo.setBackground(new Color(225, 230, 238));
@@ -51,7 +55,7 @@ public class panelPoupanca {
             labelTaxaRendimento.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelTaxaRendimento);
 
-            JTextField campoTaxaRendimento = new JTextField();
+            JTextField campoTaxaRendimento = new JTextField(String.valueOf(contaP.getTaxaRendimento())+"(10% ao mês)");
             campoTaxaRendimento.setBounds(160, 168, 250, 30);
             campoTaxaRendimento.setEditable(false);
             campoTaxaRendimento.setBackground(new Color(225, 230, 238));
@@ -114,7 +118,4 @@ public class panelPoupanca {
         interfaceConta.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> exibir());
-    }
 }

@@ -2,6 +2,10 @@ package View;
 
 import Controller.clienteController;
 import Model.Cliente;
+import Model.Conta;
+import Model.contaCorrente;
+import Model.contaPoupanca;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -125,20 +129,23 @@ public class panelLogin extends JFrame {
                 // 1. Validação temporária/mock
                 if (emailLogin.equalsIgnoreCase("samuel@gmail.com") && senhaLogin.equals("senhalouca")) {
                     dispose();
-                    panelConta.exibir();
+                    // panelConta.exibir();
                     return;
                 }
 
                 // 2. Validação no banco de dados via controller
                 clienteController controllCliente = new clienteController();
                 Cliente cliente = controllCliente.buscarCliente(emailLogin, senhaLogin);
-                String tipoContaCliente = controllCliente.buscarContaCliente(cliente.getIdCliente());
 
-                if (cliente != null && tipoContaCliente.equals("CORRENTE")) {
+                Conta conta = controllCliente.buscarContaCliente(cliente);
+
+                if (cliente != null && conta.getTipoConta().equals("CORRENTE")) {
                     dispose();
-                    panelConta.exibir();
-                } else if(cliente != null && tipoContaCliente.equals("POUPANCA")) {
-                    panelPoupanca.exibir();
+                    contaCorrente contaC = (contaCorrente) conta;
+                    panelConta.exibir(cliente, contaC);
+                } else if(cliente != null && conta.getTipoConta().equals("POUPANCA")) {
+                    contaPoupanca contaP = (contaPoupanca) conta;
+                    panelPoupanca.exibir(cliente, contaP);
                 }else{
                     erroEmail.setText("E-mail ou senha incorretos");
                     erroSenha.setText("E-mail ou senha incorretos");

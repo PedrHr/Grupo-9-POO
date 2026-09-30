@@ -1,5 +1,6 @@
 package Controller;
 import Model.Cliente;
+import Model.Conta;
 import ModelDAO.clienteDAO;
 
 public class clienteController {
@@ -19,8 +20,8 @@ public class clienteController {
 
     }
 
-    public String buscarContaCliente(int idCliente){
-      return clienteDAO.buscarContaCliente(idCliente);
+    public Conta buscarContaCliente(Cliente cliente){
+      return clienteDAO.buscarContaCliente(cliente);
 
     }
 

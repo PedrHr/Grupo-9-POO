@@ -7,6 +7,7 @@ public class contaPoupanca extends Conta {
     public contaPoupanca(double saldoAtual, String tipoConta, Cliente cliente) {
 
         super(saldoAtual, tipoConta, cliente);
+
     }
 
     public void aplicarRendimento() {
@@ -17,5 +18,9 @@ public class contaPoupanca extends Conta {
     public double getTaxaRendimento() {
         return taxaRendimento;
 
+    }
+
+    public void setTaxaRendimento(double taxaRendimento) {
+        this.taxaRendimento = taxaRendimento;
     }
 }

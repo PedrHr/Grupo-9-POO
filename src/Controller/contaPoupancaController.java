@@ -8,10 +8,10 @@ import Model.Conta;
 public class contaPoupancaController {
     private contaDAO contaDAO;
 
-//    public void inserirConta(contaPoupanca contaPoupanca, Cliente cliente){
-//        contaDAO contaDAO = new contaDAO();
-//        contaDAO.inserirConta(cliente, contaPoupanca);
-//    }
+   public void inserirConta(contaPoupanca contaPoupanca){
+        contaDAO contaDAO = new contaDAO();
+        contaDAO.inserirConta(contaPoupanca);
+    }
 
 }
 
