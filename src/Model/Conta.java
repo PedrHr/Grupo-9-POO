@@ -16,8 +16,6 @@ public abstract class Conta {
     public void depositarValor(double valorDeposito){
         if(valorDeposito > 0) {
 
-            this.saldoAtual += valorDeposito;
-
             setSaldoAtual(getSaldoAtual() + valorDeposito);
 
         }
