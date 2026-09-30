@@ -13,7 +13,7 @@ import Model.contaPoupanca;
 public class contaDAO {
     public String inserirConta(Conta conta) {
 
-        String sql = "INSERT INTO CONTA (SALDOATUAL, TIPOCONTA, IDCLIENTE_CLIENTE) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO CONTA (SALDOATUAL, TIPO, IDCLIENTE_CLIENTE) VALUES (?, ?, ?)";
 
         try {
             PreparedStatement stmt = conexaoDAO.getConexao().prepareStatement(
@@ -41,11 +41,12 @@ public class contaDAO {
 
                 contaCorrente corrente = (contaCorrente) conta;
 
-                sql = "INSERT INTO CONTACORRENTE (idContaCorrente) VALUES (?)";
+                sql = "INSERT INTO CONTACORRENTE (IDCONTACORRENTE, LIMITECREDITO) VALUES (?,?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
 
                 stmt.setInt(1, conta.getNumeroConta());
+                stmt.setDouble(2, corrente.getLimiteCredito());
 
                 stmt.executeUpdate();
 

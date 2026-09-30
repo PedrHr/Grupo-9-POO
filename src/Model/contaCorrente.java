@@ -3,12 +3,12 @@ package Model;
 import java.math.BigDecimal;
 
 public class contaCorrente extends Conta {
-    private double limiteCredito = getSaldoAtual()/2;
+    private double limiteCredito;
     private long chaveTransacao;
 
-    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente) {
-
+    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente, double limiteCredito) {
         super(saldoAtual, tipoConta, cliente);
+        this.limiteCredito = limiteCredito;
     }
 
     @Override

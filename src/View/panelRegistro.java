@@ -227,7 +227,7 @@ public class panelRegistro extends JFrame {
                 // Criando conta
                 if (radioCorrente.isSelected()) {
                     // Criando a conta do cliente
-                    contaCorrente corrente = new contaCorrente(0,"CORRENTE", cliente);
+                    contaCorrente corrente = new contaCorrente(0,"CORRENTE", cliente, 0);
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
                 } else {

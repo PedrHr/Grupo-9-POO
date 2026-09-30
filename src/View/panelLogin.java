@@ -130,13 +130,16 @@ public class panelLogin extends JFrame {
                 }
 
                 // 2. Validação no banco de dados via controller
-                clienteController buscarCliente = new clienteController();
-                Cliente cliente = buscarCliente.buscarCliente(emailLogin, senhaLogin);
+                clienteController controllCliente = new clienteController();
+                Cliente cliente = controllCliente.buscarCliente(emailLogin, senhaLogin);
+                String tipoContaCliente = controllCliente.buscarContaCliente(cliente.getIdCliente());
 
-                if (cliente != null) {
+                if (cliente != null && tipoContaCliente.equals("CORRENTE")) {
                     dispose();
                     panelConta.exibir();
-                } else {
+                } else if(cliente != null && tipoContaCliente.equals("POUPANCA")) {
+                    panelPoupanca.exibir();
+                }else{
                     erroEmail.setText("E-mail ou senha incorretos");
                     erroSenha.setText("E-mail ou senha incorretos");
                 }

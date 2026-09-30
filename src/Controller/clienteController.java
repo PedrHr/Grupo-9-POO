@@ -18,4 +18,10 @@ public class clienteController {
      return clienteDAO.buscarCliente(emailCliente, senhaCliente);
 
     }
+
+    public String buscarContaCliente(int idCliente){
+      return clienteDAO.buscarContaCliente(idCliente);
+
+    }
+
 }

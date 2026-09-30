@@ -83,4 +83,36 @@ public class clienteDAO {
         }
         return null;
     }
+
+    public String buscarContaCliente(int idCliente) {
+        String sql = "SELECT ct.tipo FROM Cliente AS c JOIN Conta AS ct ON c.idCliente = ct.idcliente_cliente WHERE c.idCliente = ? ";
+        PreparedStatement stmt = null;
+
+
+        try {
+            stmt = conexaoDAO.getConexao().prepareStatement(sql);
+
+            stmt.setInt(1, idCliente);
+
+            ResultSet result = stmt.executeQuery();
+
+
+            if (result.next()) {
+                System.out.println("Cliente encontrado");
+
+                String tipoConta = result.getString("tipo");
+                System.out.println("tipoConta: " + tipoConta);
+
+                stmt.close();
+                return tipoConta;
+
+            } else {
+                System.out.println("Cliente nao encontrado");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("tudo errado");
+        }
+        return null;
+    }
 }
