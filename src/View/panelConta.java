@@ -2,7 +2,6 @@ package View;
 
 import Controller.contaCorrenteController;
 import Model.Cliente;
-import Model.Conta;
 import Model.contaCorrente;
 
 import java.awt.*;
@@ -70,11 +69,12 @@ public class panelConta {
             labelChave.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelChave);
 
-            JTextField campoChaveTransacao = new JTextField();
+            JTextField campoChaveTransacao = new JTextField(String.valueOf(ContaCorrente.getChaveTransacao()));
             campoChaveTransacao.setBounds(160, 213, 250, 30);
             campoChaveTransacao.setEditable(false);
             campoChaveTransacao.setBackground(new Color(225, 230, 238));
             campoChaveTransacao.setFont(new Font("Arial", Font.PLAIN, 14));
+            campoSaldo.setEditable(false);
             painel.add(campoChaveTransacao);
 
             // OPERAÇÕES
@@ -138,18 +138,8 @@ public class panelConta {
             botaoGerarChave.setFocusPainted(false);
             painel.add(botaoGerarChave);
 
-            JLabel labelChave = new JLabel("Chave:");
-            labelSacar.setBounds(40, 620, 120, 25);
-            labelSacar.setFont(new Font("Arial", Font.BOLD, 14));
-            painel.add(labelSacar);
-
-            JTextField campoChave = new JTextField(String.valueOf(ContaCorrente.getChaveTransacao()));
-            campoSacar.setBounds(160, 618, 250, 30);
-            campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
-            painel.add(campoChave);
-
             JButton botaoRealizarTransacao = new JButton("Realizar Transação");
-            botaoRealizarTransacao.setBounds(40, 680, 370, 40);
+            botaoRealizarTransacao.setBounds(40, 620, 370, 40);
             botaoRealizarTransacao.setFont(new Font("Arial", Font.BOLD, 14));
             botaoRealizarTransacao.setBackground(new Color(20, 55, 100));
             botaoRealizarTransacao.setForeground(Color.WHITE);
@@ -157,7 +147,7 @@ public class panelConta {
             painel.add(botaoRealizarTransacao);
 
             JButton botaoVerExtrato = new JButton("Ver Extrato");
-            botaoVerExtrato.setBounds(40, 720, 370, 40);
+            botaoVerExtrato.setBounds(40, 680, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
             botaoVerExtrato.setBackground(new Color(20, 55, 100));
             botaoVerExtrato.setForeground(Color.WHITE);
@@ -200,10 +190,12 @@ public class panelConta {
 
                 botaoGerarChave.addActionListener(e -> {
 
-                JOptionPane.showMessageDialog(null, mensagemSaque);
                 long chave = ContaCorrente.gerarChaveTransacao();
                 contaCorrenteController controllerCorrente = new contaCorrenteController();
-                controllerCorrente.adicionarChaveTransacao(ContaCorrente);
+                String msgChave = controllerCorrente.adicionarChaveTransacao(ContaCorrente);
+
+                JOptionPane.showMessageDialog(null, msgChave);
+
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);

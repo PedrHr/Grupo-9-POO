@@ -103,7 +103,7 @@ public class contaDAO {
         }
     }
 
-    public String sacarvalor(Conta conta) {
+    public String sacarValor(Conta conta) {
 
         System.out.println(conta.getSaldoAtual());
         String sql = "UPDATE CONTA SET saldoAtual = ? WHERE numeroConta = ?";
@@ -127,4 +127,31 @@ public class contaDAO {
             return "Erro ao depositar valor na conta";
         }
     }
+
+    public String adicionarChaveTransacao(contaCorrente conta) {
+
+        System.out.println(conta.getSaldoAtual());
+        String sql = "UPDATE CONTACORRENTE SET chaveTransacao = ? WHERE idContaCorrente = ?";
+
+        System.out.println(conta.getNumeroConta());
+
+        try {
+            PreparedStatement stmt = conexaoDAO.getConexao().prepareStatement(sql);
+
+            stmt.setLong(1, conta.getChaveTransacao());
+            stmt.setInt(2, conta.getNumeroConta());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+
+            return "Voce definiu sua nova chave de transação com sucesso!";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Erro ao definir nova chave de transação";
+        }
+    }
+
+
 }
