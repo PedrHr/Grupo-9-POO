@@ -7,6 +7,7 @@ import Model.Cliente;
 import Model.Conta;
 import Model.contaCorrente;
 import Model.contaPoupanca;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -142,7 +143,7 @@ public class panelRegistro extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                
+
                 SwingUtilities.invokeLater(() -> {
                     panelLogin login = new panelLogin();
                     login.toFront();
@@ -241,7 +242,7 @@ public class panelRegistro extends JFrame {
 
                 //redireciona para o login
                 dispose();
-                
+
                 SwingUtilities.invokeLater(() -> {
                     panelLogin login = new panelLogin();
                     login.toFront();

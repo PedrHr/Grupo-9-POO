@@ -72,8 +72,6 @@ public class clienteDAO {
             if (result.next()) {
                 Cliente cliente = new Cliente(result.getString("nome"), result.getString("cpf"), result.getString("endereco"), result.getString("email"), result.getString("senha"));
                 cliente.setIdCliente(result.getInt("idCliente"));
-                System.out.println(result.getInt("idCliente"));
-                System.out.println(cliente.getIdCliente());
                 stmt.close();
                 return cliente;
 
@@ -101,7 +99,7 @@ public class clienteDAO {
 
 
             if (result.next()) {
-            Conta.TipoConta tipo = Conta.TipoConta.valueOf(result.getString("tipo"));
+                Conta.TipoConta tipo = Conta.TipoConta.valueOf(result.getString("tipo"));
                 if (tipo == Conta.TipoConta.CORRENTE) {
                     contaCorrente contaCorrente = new contaCorrente(result.getInt("saldoAtual"), tipo, cliente);
                     contaCorrente.gerarLimiteCredito();

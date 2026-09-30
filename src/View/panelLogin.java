@@ -5,6 +5,7 @@ import Model.Cliente;
 import Model.Conta;
 import Model.contaCorrente;
 import Model.contaPoupanca;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -138,7 +139,7 @@ public class panelLogin extends JFrame {
 
                 if (cliente == null) {
                     JOptionPane.showMessageDialog(null, "Senha ou email incorretos");
-                }else {
+                } else {
                     Conta conta = controllCliente.buscarContaCliente(cliente);
 
                     if (cliente != null && conta.getTipoConta() == Conta.TipoConta.CORRENTE) {

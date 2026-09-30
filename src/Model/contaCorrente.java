@@ -23,8 +23,8 @@ public class contaCorrente extends Conta {
 
             diminuirSaldo(getSaldoAtual());
             limiteCredito -= valorRestante;
-        }else{
-            contaCorrenteController contaController  = new contaCorrenteController();
+        } else {
+            contaCorrenteController contaController = new contaCorrenteController();
             return contaController.avisoSaldoInsuficiente();
         }
         return "O valor foi descontado do seu credito";
@@ -32,7 +32,7 @@ public class contaCorrente extends Conta {
 
 
     public long gerarChaveTransacao() {
-        return  this.chaveTransacao = System.currentTimeMillis();
+        return this.chaveTransacao = System.currentTimeMillis();
     }
 
     public double getLimiteCredito() {

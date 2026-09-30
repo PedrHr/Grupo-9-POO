@@ -1,9 +1,12 @@
 package View;
+
 import Controller.exceptionsController;
+
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
+
 import Controller.transacaoController;
 import Model.Transacao;
 import Model.contaCorrente;
@@ -36,18 +39,18 @@ public class panelTransacao extends JDialog {
 
         // 1. VALOR
         JLabel labelValor = new JLabel("Valor:");
-       txtValor = new JTextField(16);
+        txtValor = new JTextField(16);
         JPanel boxValor = criarBoxCampo(labelValor, txtValor);
 
         // 2. ORIGEM
         JLabel labelOrigem = new JLabel("Origem:");
-       txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
+        txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
         JPanel boxOrigem = criarBoxCampo(labelOrigem, txtOrigem);
 
 
         // 3. DESTINO
         JLabel labelDestino = new JLabel("Destino:");
-         txtDestino = new JTextField(16);
+        txtDestino = new JTextField(16);
         JPanel boxDestino = criarBoxCampo(labelDestino, txtDestino);
 
         // ADICIONA OS CAMPOS AO PAINEL CENTRAL
@@ -91,14 +94,14 @@ public class panelTransacao extends JDialog {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     String dataFormatada = dataTransacao.format(formatter);
 
-                    if(contaC.getSaldoAtual() >= valorTransacao) {
+                    if (contaC.getSaldoAtual() >= valorTransacao) {
 
-                    Transacao transacao = new Transacao(valorTransacao,contaOrigem,contaDestino,dataTransacao);
-                    transacaoController transacaoController = new transacaoController();
-                    transacaoController.adicionarTransacao(transacao);
+                        Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
+                        transacaoController transacaoController = new transacaoController();
+                        transacaoController.adicionarTransacao(transacao);
 
                         JOptionPane.showMessageDialog(this, transacao.gerarRelatorio());
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(this, "Saldo insuficiente");
                     }
 

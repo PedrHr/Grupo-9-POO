@@ -1,4 +1,5 @@
 package Controller;
+
 import Model.Cliente;
 import Model.Conta;
 import ModelDAO.clienteDAO;
@@ -11,18 +12,18 @@ public class clienteController {
     }
 
     public void inserirCliente(Cliente cliente) {
-      clienteDAO.inserirCliente(cliente);
+        clienteDAO.inserirCliente(cliente);
 
     }
 
-    public Cliente buscarCliente(String emailCliente, String senhaCliente){
-     return clienteDAO.buscarCliente(emailCliente, senhaCliente);
+    public Cliente buscarCliente(String emailCliente, String senhaCliente) {
+        return clienteDAO.buscarCliente(emailCliente, senhaCliente);
 
     }
 
-    public Conta buscarContaCliente(Cliente cliente){
+    public Conta buscarContaCliente(Cliente cliente) {
 
-      return clienteDAO.buscarContaCliente(cliente);
+        return clienteDAO.buscarContaCliente(cliente);
 
     }
 

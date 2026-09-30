@@ -53,16 +53,17 @@ public class Transacao {
     public int getIdTransacao() {
         return idTransacao;
     }
+
     public void setIdTransacao(int idTransacao) {
         this.idTransacao = idTransacao;
     }
 
     public String gerarRelatorio() {
-        return "Codigo: "+getIdTransacao()+
-                "Valor: "+getValor()+
-                "ContaOrigem: "+getContaOrigem()+
-                "ContaDestino: "+getContaDestino()+
-                "Data: "+getDataTransacao();
+        return "Codigo: " + getIdTransacao() +
+                "Valor: " + getValor() +
+                "ContaOrigem: " + getContaOrigem() +
+                "ContaDestino: " + getContaDestino() +
+                "Data: " + getDataTransacao();
 
     }
 

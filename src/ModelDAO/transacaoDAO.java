@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class transacaoDAO {
     public String inserirTransacao(Transacao transacao) {
@@ -87,4 +89,35 @@ public class transacaoDAO {
         }
     }
 
+    public List<Transacao> buscarExtrato(int numeroConta) {
+
+        List<Transacao> transacoes = new ArrayList<>();
+
+        String sql = " SELECT valor, contaOrigem, contaDestino, dataTransacao FROM Transacao WHERE contaOrigem = ? OR contaDestino = ? ORDER BY dataTransacao DESC ";
+
+        try {
+            PreparedStatement stmt =
+                    conexaoDAO.getConexao().prepareStatement(sql);
+
+            stmt.setInt(1, numeroConta);
+            stmt.setInt(2, numeroConta);
+
+            ResultSet result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                Transacao transacao = new Transacao(result.getDouble("valor"), result.getInt("contaOrigem"), result.getInt("contaDestino"), result.getTimestamp("dataTransacao").toLocalDateTime());
+
+                transacoes.add(transacao);
+            }
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return transacoes;
     }
+
+}

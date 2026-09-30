@@ -6,7 +6,7 @@ public class contaPoupanca extends Conta {
 
     public contaPoupanca(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
 
-        super(saldoAtual ,tipoConta, cliente);
+        super(saldoAtual, tipoConta, cliente);
 
     }
 
@@ -14,11 +14,12 @@ public class contaPoupanca extends Conta {
         return taxaRendimento;
 
     }
-    @Override
-    public void depositarValor(double valorDeposito){
-        if(valorDeposito > 0) {
 
-             aplicarTaxa(taxaRendimento, valorDeposito);
+    @Override
+    public void depositarValor(double valorDeposito) {
+        if (valorDeposito > 0) {
+
+            aplicarTaxa(taxaRendimento, valorDeposito);
 
         }
     }

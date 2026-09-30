@@ -21,40 +21,40 @@ public class Cliente {
     }
 
     public void setIdCliente(int idCliente) {
-        if ( idCliente <=0){
+        if (idCliente <= 0) {
             System.out.println("Não foi possivel gerar sua conta");
-    }else{
-        this.idCliente = idCliente;
+        } else {
+            this.idCliente = idCliente;
+        }
     }
-}
 
 
-public String getNome() {
+    public String getNome() {
 
-    return nome;
-}
-
-
-public String getCpf() {
-
-    return cpf;
-}
+        return nome;
+    }
 
 
-public String getEmail() {
+    public String getCpf() {
 
-    return email;
-}
-
-public String getSenha() {
-
-    return senha;
-}
+        return cpf;
+    }
 
 
-public String getEndereco() {
+    public String getEmail() {
 
-    return endereco;
-}
+        return email;
+    }
+
+    public String getSenha() {
+
+        return senha;
+    }
+
+
+    public String getEndereco() {
+
+        return endereco;
+    }
 
 }

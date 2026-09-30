@@ -7,7 +7,7 @@ public abstract class Conta {
     private double saldoAtual = 0;
     private TipoConta tipoConta;
     private Cliente cliente;
-    private double saldoAtualInicial = 0 ;
+    private double saldoAtualInicial = 0;
 
     public Conta(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
         this.saldoAtual = saldoAtual;
@@ -23,24 +23,24 @@ public abstract class Conta {
         return tipoConta;
     }
 
-    public void depositarValor(double valorDeposito){
-        if(valorDeposito > 0) {
+    public void depositarValor(double valorDeposito) {
+        if (valorDeposito > 0) {
 
             this.saldoAtual = (getSaldoAtual() + valorDeposito);
 
         }
     }
 
-    public void aplicarTaxa(double taxaRendimento, double valorDeposito){
+    public void aplicarTaxa(double taxaRendimento, double valorDeposito) {
         this.saldoAtual = (getSaldoAtual() + valorDeposito) + (getSaldoAtual() * taxaRendimento);
     }
 
     public String sacarValor(double valorSacar) {
-        if(valorSacar > 0 && saldoAtual >= valorSacar) {
-            if(this.saldoAtual >= valorSacar) {
+        if (valorSacar > 0 && saldoAtual >= valorSacar) {
+            if (this.saldoAtual >= valorSacar) {
                 this.saldoAtual -= valorSacar;
             }
-        }else {
+        } else {
             return "Seu é Saldo insuficiente para prosseguir com a operação";
         }
         return "Saldo sacado com sucesso!";
@@ -66,9 +66,10 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
-    public double getSaldoAtual(){
+    public double getSaldoAtual() {
         return saldoAtual;
     }
+
     public void diminuirSaldo(double valor) {
         saldoAtual -= valor;
     }

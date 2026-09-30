@@ -7,6 +7,8 @@ import Model.contaCorrente;
 import java.awt.*;
 import javax.swing.*;
 
+import static View.panelExtrato.interfaceExtrato;
+
 public class panelConta {
 
     static JFrame interfaceConta;
@@ -200,6 +202,13 @@ public class panelConta {
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);
+            });
+
+            botaoVerExtrato.addActionListener(e -> {
+
+                interfaceConta.dispose();
+                interfaceConta = null;
+                panelExtrato.exibir(ContaCorrente, cliente);
             });
 
 

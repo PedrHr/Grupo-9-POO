@@ -1,4 +1,5 @@
 package ModelDAO;
+
 import javax.swing.*;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class conexaoDAO {
             } else {
                 return conn;
             }
-        } catch (SQLException excecao){
+        } catch (SQLException excecao) {
             excecao.printStackTrace();
             JOptionPane.showMessageDialog(null, "Nao foi possivel estabelcer conexao com o Banco de Dados");
             return null;
