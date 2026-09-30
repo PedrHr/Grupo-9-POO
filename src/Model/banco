@@ -14,7 +14,7 @@ senha varchar(45) not null
 create table Conta (
 numeroConta int primary key auto_increment,
 saldoAtual decimal (10,2),
-tipo ENUM('CORRENTE, POUPANCA'),
+tipo ENUM('CORRENTE', 'POUPANCA'),
 idcliente_cliente int unique,
 foreign key (idcliente_cliente) references Cliente(idCliente)
 );
