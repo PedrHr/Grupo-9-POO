@@ -152,6 +152,12 @@ public class panelConta {
                 contaCorrenteController controllCorrente = new contaCorrenteController();
                 String mensagemSucess = controllCorrente.inserirDeposito(ContaCorrente);
 
+                double Saque = Double.parseDouble(campoSacar.getText());
+                ContaCorrente.sacarValor(Deposito);
+
+                contaCorrenteController controllCorrente = new contaCorrenteController();
+                String mensagemSucess = controllCorrente.sacarValor(ContaCorrente);
+
                 JOptionPane.showMessageDialog(null, mensagemSucess);
 
                 interfaceConta.dispose();
