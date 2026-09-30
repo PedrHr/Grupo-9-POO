@@ -28,6 +28,7 @@ public String avisoSaldoInsuficiente(){
     return "Seu saldo é insuficiente para prosseguir com a operação";
 }
 
-
-
+    public double getSaldoInicial() {
+        return 0;
+    }
 }

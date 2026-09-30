@@ -98,8 +98,7 @@ public class panelTransacao extends JDialog {
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Transação efetuada com sucesso!";
-                            JOptionPane.INFORMATION_MESSAGE
+                            "Transação efetuada com sucesso!"
                     );
 
                     dispose(); // Fecha o diálogo após o envio

@@ -4,6 +4,7 @@ import Controller.clienteController;
 import Controller.contaCorrenteController;
 import Controller.contaPoupancaController;
 import Model.Cliente;
+import Model.Conta;
 import Model.contaCorrente;
 import Model.contaPoupanca;
 import java.awt.*;
@@ -225,11 +226,14 @@ public class panelRegistro extends JFrame {
 
                 //salva conta no banco
                 if (radioCorrente.isSelected()) {
-                    contaCorrente corrente = new contaCorrente("CORRENTE", cliente);
+                    contaCorrenteController contaCorrente = new contaCorrenteController();
+                    contaCorrente corrente = new contaCorrente(contaCorrente.getSaldoInicial(),"CORRENTE", cliente);
+
                     contaCorrenteController inserirCorrente = new contaCorrenteController();
                     inserirCorrente.inserirConta(corrente);
                 } else {
-                    contaPoupanca poupanca = new contaPoupanca("POUPANCA", cliente);
+                    contaPoupancaController contaPoupanca = new contaPoupancaController();
+                    contaPoupanca poupanca = new contaPoupanca(contaPoupanca.getSaldoInicial(), "POUPANCA", cliente);
                     contaPoupancaController inserirPoupanca = new contaPoupancaController();
                     inserirPoupanca.inserirConta(poupanca);
                 }

@@ -103,11 +103,11 @@ public class clienteDAO {
 
             if (result.next()) {
                 if (result.getString("tipo").equals("CORRENTE")) {
-                    contaCorrente contaCorrente = new contaCorrente(result.getString("tipo"), cliente);
-                    contaCorrente.setNumeroConta(result.getInt("numeroConta"));
+                    contaCorrente contaCorrente = new contaCorrente(result.getInt("saldoAtual"), result.getString("tipo"), cliente);
+                    contaCorrente.gerarLimiteCredito();
                     return contaCorrente;
                 } else {
-                    contaPoupanca contaPoupanca = new contaPoupanca(result.getString("tipo"), cliente);
+                    contaPoupanca contaPoupanca = new contaPoupanca(result.getInt("saldoAtual"), result.getString("tipo"), cliente);
                     contaPoupanca.setNumeroConta(result.getInt("numeroConta"));
                     return contaPoupanca;
                 }

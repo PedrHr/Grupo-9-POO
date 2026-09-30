@@ -131,12 +131,7 @@ public class panelLogin extends JFrame {
                     erroSenha.setText("Preencha a senha");
                 }
             } else {
-                //validacao de teste
-                if (emailLogin.equalsIgnoreCase("samuel@gmail.com") && senhaLogin.equals("senhalouca")) {
-                    dispose();
-                    //panelConta.exibir();
-                    return;
-                }
+
 
                 //validacao no banco
                 clienteController controllCliente = new clienteController();

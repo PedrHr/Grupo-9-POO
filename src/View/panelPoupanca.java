@@ -1,5 +1,7 @@
 package View;
 
+import Controller.contaCorrenteController;
+import Controller.contaPoupancaController;
 import Model.Cliente;
 import Model.Conta;
 import Model.contaPoupanca;
@@ -55,56 +57,85 @@ public class panelPoupanca {
             labelTaxaRendimento.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelTaxaRendimento);
 
-            JTextField campoTaxaRendimento = new JTextField(String.valueOf(contaP.getTaxaRendimento())+"(10% ao mês)");
+            JTextField campoTaxaRendimento = new JTextField(String.valueOf(contaP.getTaxaRendimento()));
             campoTaxaRendimento.setBounds(160, 168, 250, 30);
             campoTaxaRendimento.setEditable(false);
             campoTaxaRendimento.setBackground(new Color(225, 230, 238));
             campoTaxaRendimento.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoTaxaRendimento);
 
-            // OPERAÇÕES
             JLabel tituloOperacoes = new JLabel("OPERAÇÕES");
-            tituloOperacoes.setBounds(40, 215, 300, 30);
+            tituloOperacoes.setBounds(40, 265, 300, 30);
             tituloOperacoes.setFont(new Font("Arial", Font.BOLD, 18));
             tituloOperacoes.setForeground(new Color(30, 60, 100));
             painel.add(tituloOperacoes);
 
             JLabel labelDepositar = new JLabel("Depositar:");
-            labelDepositar.setBounds(40, 265, 120, 25);
+            labelDepositar.setBounds(40, 315, 120, 25);
             labelDepositar.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelDepositar);
 
             JTextField campoDepositar = new JTextField();
-            campoDepositar.setBounds(160, 263, 250, 30);
+            campoDepositar.setBounds(160, 313, 250, 30);
             campoDepositar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoDepositar);
 
+
+            JButton botaoEnviarDeposito = new JButton("Enviar deposito");
+            botaoEnviarDeposito.setBounds(40, 360, 250, 20);
+            botaoEnviarDeposito.setFont(new Font("Arial", Font.BOLD, 14));
+            botaoEnviarDeposito.setBackground(new Color(20, 55, 100));
+            botaoEnviarDeposito.setForeground(Color.WHITE);
+            botaoEnviarDeposito.setFocusPainted(false);
+            painel.add(botaoEnviarDeposito);
+
+
             JLabel labelSacar = new JLabel("Sacar:");
-            labelSacar.setBounds(40, 310, 120, 25);
+            labelSacar.setBounds(40, 420, 120, 25);
             labelSacar.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelSacar);
 
             JTextField campoSacar = new JTextField();
-            campoSacar.setBounds(160, 308, 250, 30);
+            campoSacar.setBounds(160, 418, 250, 30);
             campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoSacar);
 
-            // BOTÕES
-            JButton botaoDepositar = new JButton("Depositar");
-            botaoDepositar.setBounds(40, 360, 370, 40);
-            botaoDepositar.setFont(new Font("Arial", Font.BOLD, 14));
-            botaoDepositar.setBackground(new Color(20, 55, 100));
-            botaoDepositar.setForeground(Color.WHITE);
-            botaoDepositar.setFocusPainted(false);
-            painel.add(botaoDepositar);
+            JButton btnSacar = new JButton("Sacar Valor");
+            btnSacar.setBounds(40, 460, 250, 20);
+            btnSacar.setFont(new Font("Arial", Font.BOLD, 14));
+            btnSacar.setBackground(new Color(20, 55, 100));
+            btnSacar.setForeground(Color.WHITE);
+            btnSacar.setFocusPainted(false);
+            painel.add(btnSacar);
 
-            JButton botaoSacar = new JButton("Sacar");
-            botaoSacar.setBounds(40, 410, 370, 40);
-            botaoSacar.setFont(new Font("Arial", Font.BOLD, 14));
-            botaoSacar.setBackground(new Color(20, 55, 100));
-            botaoSacar.setForeground(Color.WHITE);
-            botaoSacar.setFocusPainted(false);
-            painel.add(botaoSacar);
+
+            botaoEnviarDeposito.addActionListener(e -> {
+                double Deposito = Double.parseDouble(campoDepositar.getText());
+                contaP.depositarValor(Deposito);
+
+                contaPoupancaController controllPoupanca = new contaPoupancaController();
+                String mensagemSucess = controllPoupanca.inserirDeposito(contaP);
+
+                JOptionPane.showMessageDialog(null, mensagemSucess);
+
+                interfaceConta.dispose();
+                interfaceConta = null;
+                exibir(cliente, contaP);
+            });
+
+            btnSacar.addActionListener(e -> {
+                double Saque = Double.parseDouble(campoSacar.getText());
+                String msgSaque = contaP.sacarValor(Saque);
+
+                contaPoupancaController controllP = new contaPoupancaController();
+                String mensagemSaque = controllP.sacarValor(contaP);
+
+                JOptionPane.showMessageDialog(null, msgSaque);
+
+                interfaceConta.dispose();
+                interfaceConta = null;
+                exibir(cliente, contaP);
+            });
 
 
             // CONFIGURAÇÃO DA JANELA

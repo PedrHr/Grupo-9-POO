@@ -37,11 +37,7 @@ public class transacaoDAO {
 
             System.out.println(idContaDestino);
 
-            PreparedStatement stmt =
-                    conexaoDAO.getConexao().prepareStatement(
-                            sql,
-                            Statement.RETURN_GENERATED_KEYS
-                    );
+            PreparedStatement stmt = conexaoDAO.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setDouble(1, transacao.getValor());
             stmt.setInt(2, transacao.getContaOrigem());

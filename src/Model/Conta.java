@@ -7,8 +7,10 @@ public abstract class Conta {
     private double saldoAtual = 0;
     private String tipoConta;
     private Cliente cliente;
+    private double saldoAtualInicial =0 ;
 
-    public Conta(String tipoConta, Cliente cliente) {
+    public Conta(double saldoAtual, String tipoConta, Cliente cliente) {
+        this.saldoAtual = saldoAtual;
         this.tipoConta = tipoConta;
         this.cliente = cliente;
     }
@@ -19,6 +21,10 @@ public abstract class Conta {
             this.saldoAtual = (getSaldoAtual() + valorDeposito);
 
         }
+    }
+
+    public void aplicarTaxa(double taxaRendimento, double valorDeposito){
+        this.saldoAtual = (getSaldoAtual() + valorDeposito) + (getSaldoAtual() * taxaRendimento);
     }
 
     public String sacarValor(double valorSacar) {
@@ -61,5 +67,9 @@ public abstract class Conta {
     }
     public void diminuirSaldo(double valor) {
         saldoAtual -= valor;
+    }
+
+    public double getSaldoAtualInicial() {
+        return saldoAtualInicial;
     }
 }

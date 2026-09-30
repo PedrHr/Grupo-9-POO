@@ -8,8 +8,8 @@ public class contaCorrente extends Conta {
     private double limiteCredito;
     private long chaveTransacao;
 
-    public contaCorrente(String tipoConta, Cliente cliente) {
-        super(tipoConta, cliente);
+    public contaCorrente(double saldoAtual, String tipoConta, Cliente cliente) {
+        super(saldoAtual, tipoConta, cliente);
     }
 
     @Override
@@ -25,6 +25,14 @@ public class contaCorrente extends Conta {
         }else{
             contaCorrenteController contaController  = new contaCorrenteController();
             return contaController.avisoSaldoInsuficiente();
+        }
+        return "Oiiiiiiiiiiiiii";
+    }
+
+    @Override
+    public void depositarValor(double valorDeposito){
+        if(valorDeposito > 0) {
+            this.limiteCredito = (getSaldoAtual() + valorDeposito);
         }
     }
 
