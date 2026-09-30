@@ -20,6 +20,10 @@ public String sacarValor(contaCorrente ContaCorrente){
     contaDAO contaDAO = new contaDAO();
     return contaDAO.sacarvalor(ContaCorrente);
 }
+public String adicionarChaveTransacao(contaCorrente ContaCorrente){
+    contaDAO contaDAO = new contaDAO();
+    return contaDAO.adicionarChaveTransacao(ContaCorrente);
+}
 
 
 }

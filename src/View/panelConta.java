@@ -202,6 +202,8 @@ public class panelConta {
 
                 JOptionPane.showMessageDialog(null, mensagemSaque);
                 long chave = ContaCorrente.gerarChaveTransacao();
+                contaCorrenteController controllerCorrente = new contaCorrenteController();
+                controllerCorrente.adicionarChaveTransacao(ContaCorrente);
                 interfaceConta.dispose();
                 interfaceConta = null;
                 exibir(cliente, ContaCorrente);
