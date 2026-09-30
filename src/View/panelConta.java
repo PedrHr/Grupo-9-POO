@@ -94,45 +94,62 @@ public class panelConta {
             campoDepositar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoDepositar);
 
+
+
+
+            JButton botaoEnviarDeposito = new JButton("Enviar deposito");
+            botaoEnviarDeposito.setBounds(40, 360, 250, 20);
+            botaoEnviarDeposito.setFont(new Font("Arial", Font.BOLD, 14));
+            botaoEnviarDeposito.setBackground(new Color(20, 55, 100));
+            botaoEnviarDeposito.setForeground(Color.WHITE);
+            botaoEnviarDeposito.setFocusPainted(false);
+            painel.add(botaoEnviarDeposito);
+
+
             JLabel labelSacar = new JLabel("Sacar:");
-            labelSacar.setBounds(40, 360, 120, 25);
+            labelSacar.setBounds(40, 420, 120, 25);
             labelSacar.setFont(new Font("Arial", Font.BOLD, 14));
             painel.add(labelSacar);
 
             JTextField campoSacar = new JTextField();
-            campoSacar.setBounds(160, 358, 250, 30);
+            campoSacar.setBounds(160, 418, 250, 30);
             campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoSacar);
 
-
-
             // BOTÕES
-            JButton botaoEnviarRequisicoes = new JButton("Enviar Requisições");
-            botaoEnviarRequisicoes.setBounds(40, 420, 370, 40);
-            botaoEnviarRequisicoes.setFont(new Font("Arial", Font.BOLD, 14));
-            botaoEnviarRequisicoes.setBackground(new Color(20, 55, 100));
-            botaoEnviarRequisicoes.setForeground(Color.WHITE);
-            botaoEnviarRequisicoes.setFocusPainted(false);
-            painel.add(botaoEnviarRequisicoes);
 
-            JButton botaoGerarChave = new JButton("Gerar chave transação");
-            botaoGerarChave.setBounds(40, 470, 370, 40);
+            JButton btnSacar = new JButton("Sacar Valor");
+            btnSacar.setBounds(40, 460, 250, 20);
+            btnSacar.setFont(new Font("Arial", Font.BOLD, 14));
+            btnSacar.setBackground(new Color(20, 55, 100));
+            btnSacar.setForeground(Color.WHITE);
+            btnSacar.setFocusPainted(false);
+            painel.add(btnSacar);
+
+            JLabel tituloOpcoes = new JLabel("OPÇÕES");
+            tituloOpcoes.setBounds(40, 530, 200, 30);
+            tituloOpcoes.setFont(new Font("Arial", Font.BOLD, 18));
+            tituloOpcoes.setForeground(new Color(30, 60, 100));
+            painel.add(tituloOpcoes);
+
+            JButton botaoGerarChave = new JButton("Gerar Chave Transação");
+            botaoGerarChave.setBounds(40, 570, 370, 40);
             botaoGerarChave.setFont(new Font("Arial", Font.BOLD, 14));
             botaoGerarChave.setBackground(new Color(20, 55, 100));
             botaoGerarChave.setForeground(Color.WHITE);
             botaoGerarChave.setFocusPainted(false);
             painel.add(botaoGerarChave);
 
-            JButton botaoRealizarTransacao = new JButton("Realizar transação");
-            botaoRealizarTransacao.setBounds(40, 520, 370, 40);
+            JButton botaoRealizarTransacao = new JButton("Realizar Transação");
+            botaoRealizarTransacao.setBounds(40, 620, 370, 40);
             botaoRealizarTransacao.setFont(new Font("Arial", Font.BOLD, 14));
             botaoRealizarTransacao.setBackground(new Color(20, 55, 100));
             botaoRealizarTransacao.setForeground(Color.WHITE);
             botaoRealizarTransacao.setFocusPainted(false);
             painel.add(botaoRealizarTransacao);
 
-            JButton botaoVerExtrato = new JButton("Ver extrato");
-            botaoVerExtrato.setBounds(40, 570, 370, 40);
+            JButton botaoVerExtrato = new JButton("Ver Extrato");
+            botaoVerExtrato.setBounds(40, 670, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
             botaoVerExtrato.setBackground(new Color(20, 55, 100));
             botaoVerExtrato.setForeground(Color.WHITE);
@@ -145,20 +162,28 @@ public class panelConta {
                 new panelTransacao(interfaceConta).setVisible(true);
             });
 
-            botaoEnviarRequisicoes.addActionListener(e -> {
+            botaoEnviarDeposito.addActionListener(e -> {
                 double Deposito = Double.parseDouble(campoDepositar.getText());
                 ContaCorrente.depositarValor(Deposito);
                 System.out.println(ContaCorrente.getSaldoAtual());
                 contaCorrenteController controllCorrente = new contaCorrenteController();
                 String mensagemSucess = controllCorrente.inserirDeposito(ContaCorrente);
 
-                double Saque = Double.parseDouble(campoSacar.getText());
-                ContaCorrente.sacarValor(Deposito);
-
-                contaCorrenteController controllCorrente = new contaCorrenteController();
-                String mensagemSucess = controllCorrente.sacarValor(ContaCorrente);
-
                 JOptionPane.showMessageDialog(null, mensagemSucess);
+
+                interfaceConta.dispose();
+                interfaceConta = null;
+                exibir(cliente, ContaCorrente);
+                    });
+
+            btnSacar.addActionListener(e -> {
+                double Saque = Double.parseDouble(campoSacar.getText());
+                ContaCorrente.sacarValor(Saque);
+                System.out.println(ContaCorrente.getSaldoAtual());
+                contaCorrenteController controllCorrente = new contaCorrenteController();
+                String mensagemSaque = controllCorrente.sacarValor(ContaCorrente);
+
+                JOptionPane.showMessageDialog(null, mensagemSaque);
 
                 interfaceConta.dispose();
                 interfaceConta = null;
@@ -168,7 +193,7 @@ public class panelConta {
 
             // CONFIGURAÇÃO DA JANELA
             interfaceConta.setContentPane(painel);
-            interfaceConta.setSize(480, 630);
+            interfaceConta.setSize(580, 770);
             interfaceConta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             interfaceConta.setLocationRelativeTo(null);
             interfaceConta.setResizable(false);
