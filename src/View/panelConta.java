@@ -116,7 +116,7 @@ public class panelConta {
             painel.add(botaoEnviarRequisicoes);
 
             JButton botaoGerarChave = new JButton("Gerar chave transação");
-            botaoGerarChave.setBounds(40, 420, 370, 40);
+            botaoGerarChave.setBounds(40, 470, 370, 40);
             botaoGerarChave.setFont(new Font("Arial", Font.BOLD, 14));
             botaoGerarChave.setBackground(new Color(20, 55, 100));
             botaoGerarChave.setForeground(Color.WHITE);
@@ -124,7 +124,7 @@ public class panelConta {
             painel.add(botaoGerarChave);
 
             JButton botaoRealizarTransacao = new JButton("Realizar transação");
-            botaoRealizarTransacao.setBounds(40, 470, 370, 40);
+            botaoRealizarTransacao.setBounds(40, 520, 370, 40);
             botaoRealizarTransacao.setFont(new Font("Arial", Font.BOLD, 14));
             botaoRealizarTransacao.setBackground(new Color(20, 55, 100));
             botaoRealizarTransacao.setForeground(Color.WHITE);
@@ -132,7 +132,7 @@ public class panelConta {
             painel.add(botaoRealizarTransacao);
 
             JButton botaoVerExtrato = new JButton("Ver extrato");
-            botaoVerExtrato.setBounds(40, 520, 370, 40);
+            botaoVerExtrato.setBounds(40, 570, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
             botaoVerExtrato.setBackground(new Color(20, 55, 100));
             botaoVerExtrato.setForeground(Color.WHITE);
@@ -146,7 +146,6 @@ public class panelConta {
             });
 
             botaoEnviarRequisicoes.addActionListener(e -> {
-                System.out.println(Double.parseDouble(campoDepositar.getText()));
                 double Deposito = Double.parseDouble(campoDepositar.getText());
                 ContaCorrente.depositarValor(Deposito);
                 System.out.println(ContaCorrente.getSaldoAtual());
