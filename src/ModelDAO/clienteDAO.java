@@ -106,9 +106,11 @@ public class clienteDAO {
             if (result.next()) {
                 if (result.getString("tipo").equals("CORRENTE")) {
                     contaCorrente contaCorrente = new contaCorrente(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    contaCorrente.setNumeroConta(result.getInt("numeroConta"));
                     return contaCorrente;
                 } else {
                     contaPoupanca contaPoupanca = new contaPoupanca(result.getDouble("saldoAtual"), result.getString("tipo"), cliente);
+                    contaPoupanca.setNumeroConta(result.getInt("numeroConta"));
                     return contaPoupanca;
                 }
             }

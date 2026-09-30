@@ -1,5 +1,6 @@
 package View;
 
+import Controller.contaCorrenteController;
 import Model.Cliente;
 import Model.Conta;
 import Model.contaCorrente;
@@ -103,7 +104,17 @@ public class panelConta {
             campoSacar.setFont(new Font("Arial", Font.PLAIN, 14));
             painel.add(campoSacar);
 
+
+
             // BOTÕES
+            JButton botaoEnviarRequisicoes = new JButton("Enviar Requisições");
+            botaoEnviarRequisicoes.setBounds(40, 420, 370, 40);
+            botaoEnviarRequisicoes.setFont(new Font("Arial", Font.BOLD, 14));
+            botaoEnviarRequisicoes.setBackground(new Color(20, 55, 100));
+            botaoEnviarRequisicoes.setForeground(Color.WHITE);
+            botaoEnviarRequisicoes.setFocusPainted(false);
+            painel.add(botaoEnviarRequisicoes);
+
             JButton botaoGerarChave = new JButton("Gerar chave transação");
             botaoGerarChave.setBounds(40, 420, 370, 40);
             botaoGerarChave.setFont(new Font("Arial", Font.BOLD, 14));
@@ -120,11 +131,6 @@ public class panelConta {
             botaoRealizarTransacao.setFocusPainted(false);
             painel.add(botaoRealizarTransacao);
 
-            // AÇÃO DO BOTÃO REALIZAR TRANSAÇÃO (Abre a tela mantendo a atual aberta)
-            botaoRealizarTransacao.addActionListener(e -> {
-                new panelTransacao(interfaceConta).setVisible(true);
-            });
-
             JButton botaoVerExtrato = new JButton("Ver extrato");
             botaoVerExtrato.setBounds(40, 520, 370, 40);
             botaoVerExtrato.setFont(new Font("Arial", Font.BOLD, 14));
@@ -132,6 +138,28 @@ public class panelConta {
             botaoVerExtrato.setForeground(Color.WHITE);
             botaoVerExtrato.setFocusPainted(false);
             painel.add(botaoVerExtrato);
+
+            //AÇÔES DE BOTÕES
+            // AÇÃO DO BOTÃO REALIZAR TRANSAÇÃO (Abre a tela mantendo a atual aberta)
+            botaoRealizarTransacao.addActionListener(e -> {
+                new panelTransacao(interfaceConta).setVisible(true);
+            });
+
+            botaoEnviarRequisicoes.addActionListener(e -> {
+                System.out.println(Double.parseDouble(campoDepositar.getText()));
+                double Deposito = Double.parseDouble(campoDepositar.getText());
+                ContaCorrente.depositarValor(Deposito);
+                System.out.println(ContaCorrente.getSaldoAtual());
+                contaCorrenteController controllCorrente = new contaCorrenteController();
+                String mensagemSucess = controllCorrente.inserirDeposito(ContaCorrente);
+
+                JOptionPane.showMessageDialog(null, mensagemSucess);
+
+                interfaceConta.dispose();
+                interfaceConta = null;
+                exibir(cliente, ContaCorrente);
+                    });
+
 
             // CONFIGURAÇÃO DA JANELA
             interfaceConta.setContentPane(painel);
