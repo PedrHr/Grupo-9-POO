@@ -5,9 +5,11 @@ public class contaPoupanca extends Conta {
     private double taxaRendimento = 0.010;
 
     public contaPoupanca(TipoConta tipoConta, Cliente cliente) {
-
         super(tipoConta, cliente);
+    }
 
+    public contaPoupanca(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
+        super(saldoAtual, tipoConta, cliente);
     }
 
     public double getTaxaRendimento() {
@@ -16,11 +18,12 @@ public class contaPoupanca extends Conta {
     }
 
     @Override
-    public void depositarValor(double valorDeposito) {
+    public String depositarValor(double valorDeposito) {
         if (valorDeposito > 0) {
-
             aplicarTaxa(taxaRendimento, valorDeposito);
-
+            return "Valor depositado com sucesso";
+        }else{
+            return "Valor depositado com sucesso";
         }
     }
 

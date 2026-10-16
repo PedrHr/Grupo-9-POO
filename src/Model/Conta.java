@@ -17,6 +17,12 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
+    public Conta(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
+        this.saldoAtual = saldoAtual;
+        this.tipoConta = tipoConta;
+        this.cliente = cliente;
+    }
+
     public enum TipoConta {
         CORRENTE, POUPANCA
     }
@@ -50,11 +56,12 @@ public abstract class Conta {
 
     // METODOS DE DOMINIO
 
-    public void depositarValor(double valorDeposito) {
+    public String depositarValor(double valorDeposito) {
         if (valorDeposito > 0) {
-
             this.saldoAtual = (getSaldoAtual() + valorDeposito);
-
+            return "Valor depositado com sucesso";
+        }else {
+            return "Voce nao pode depositar valores nulos ou negativos";
         }
     }
 
@@ -72,4 +79,17 @@ public abstract class Conta {
         }
         return "Saldo sacado com sucesso!";
     }
+
+    public void diminuirSaldo(double valorSacar) {
+        if (saldoAtual >= valorSacar && valorSacar > 0) {
+            this.saldoAtual -= valorSacar;
+        }
+    }
+
+    public void aumentarSaldo(double valorDeposito) {
+        if (valorDeposito > 0) {
+            this.saldoAtual += valorDeposito;
+        }
+    }
+
 }
