@@ -102,7 +102,6 @@ public class clienteDAO {
                 Conta.TipoConta tipo = Conta.TipoConta.valueOf(result.getString("tipo"));
                 if (tipo == Conta.TipoConta.CORRENTE) {
                     contaCorrente contaCorrente = new contaCorrente(result.getInt("saldoAtual"), tipo, cliente);
-                    contaCorrente.gerarLimiteCredito();
                     contaCorrente.setNumeroConta(result.getInt("numeroConta"));
                     return contaCorrente;
                 } else {

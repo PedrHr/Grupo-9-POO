@@ -220,27 +220,28 @@ public class panelRegistro extends JFrame {
             }
 
             try {
-                //salva cliente no banco
-                Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
-                clienteController cadastrarCliente = new clienteController();
-                cadastrarCliente.inserirCliente(cliente);
 
-                //salva conta no banco
+                //REGISTRA O CLIENTE
+                Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
+                clienteController controlCliente = new clienteController();
+                controlCliente.inserirCliente(cliente);
+
+                // CRIAÇÃO DAS CONTAS
                 if (radioCorrente.isSelected()) {
-                    contaCorrenteController contaCorrente = new contaCorrenteController();
-                    contaCorrente corrente = new contaCorrente(contaCorrente.getSaldoInicial(), Conta.TipoConta.CORRENTE, cliente);
-                    contaCorrenteController inserirCorrente = new contaCorrenteController();
-                    inserirCorrente.inserirConta(corrente);
-                    JOptionPane.showMessageDialog(null, "Conta registrada com sucesso");
+                    contaCorrente corrente = new contaCorrente(Conta.TipoConta.CORRENTE, cliente);
+                    contaCorrenteController controlCorrente = new contaCorrenteController();
+                    controlCorrente.inserirConta(corrente);
+                    JOptionPane.showMessageDialog(null, "Conta corrente registrada com sucesso");
                 } else {
                     contaPoupancaController contaPoupanca = new contaPoupancaController();
-                    contaPoupanca poupanca = new contaPoupanca(contaPoupanca.getSaldoInicial(), Conta.TipoConta.POUPANCA, cliente);
+                    contaPoupanca poupanca = new contaPoupanca(Conta.TipoConta.POUPANCA, cliente);
                     contaPoupancaController inserirPoupanca = new contaPoupancaController();
                     inserirPoupanca.inserirConta(poupanca);
                     JOptionPane.showMessageDialog(null, "Conta registrada com sucesso");
                 }
 
-                //redireciona para o login
+                //REDIRECIONA LOGIN
+
                 dispose();
 
                 SwingUtilities.invokeLater(() -> {

@@ -9,8 +9,10 @@ public abstract class Conta {
     private Cliente cliente;
     private double saldoAtualInicial = 0;
 
-    public Conta(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
-        this.saldoAtual = saldoAtual;
+    // CONSTRUTOR
+
+    public Conta(TipoConta tipoConta, Cliente cliente) {
+        this.saldoAtual = 0;
         this.tipoConta = tipoConta;
         this.cliente = cliente;
     }
@@ -19,9 +21,34 @@ public abstract class Conta {
         CORRENTE, POUPANCA
     }
 
-    public TipoConta getTicoConta() {
+    // GETTERS E SETTERS
+
+    public TipoConta getTipoConta() {
         return tipoConta;
     }
+
+    public int getNumeroConta() {
+
+        return numeroConta;
+    }
+
+    public void setNumeroConta(int numeroConta) {
+        this.numeroConta = numeroConta;
+    }
+
+    public double getSaldoAtual() {
+        return saldoAtual;
+    }
+
+    public double getSaldoAtualInicial() {
+        return saldoAtualInicial;
+    }
+
+    public int getIdCliente() {
+        return cliente.getIdCliente();
+    }
+
+    // METODOS DE DOMINIO
 
     public void depositarValor(double valorDeposito) {
         if (valorDeposito > 0) {
@@ -44,37 +71,5 @@ public abstract class Conta {
             return "Seu é Saldo insuficiente para prosseguir com a operação";
         }
         return "Saldo sacado com sucesso!";
-    }
-
-    public int getNumeroConta() {
-        return numeroConta;
-    }
-
-    public void setNumeroConta(int numeroConta) {
-        this.numeroConta = numeroConta;
-    }
-
-    public TipoConta getTipoConta() {
-        return tipoConta;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public double getSaldoAtual() {
-        return saldoAtual;
-    }
-
-    public void diminuirSaldo(double valor) {
-        saldoAtual -= valor;
-    }
-
-    public double getSaldoAtualInicial() {
-        return saldoAtualInicial;
     }
 }

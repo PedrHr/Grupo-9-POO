@@ -8,7 +8,7 @@ public class contaCorrente extends Conta {
     private double limiteCredito;
     private long chaveTransacao;
 
-    public contaCorrente(double saldoAtual, TipoConta tipoConta, Cliente cliente) {
+    public contaCorrente(TipoConta tipoConta, Cliente cliente) {
         super(saldoAtual, tipoConta, cliente);
     }
 

@@ -1,10 +1,8 @@
 package ModelDAO;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import Model.Cliente;
 import ModelDAO.conexaoDAO;
 import Model.Conta;
@@ -24,7 +22,7 @@ public class contaDAO {
 
             stmt.setDouble(1, conta.getSaldoAtual());
             stmt.setString(2, conta.getTipoConta().name());
-            stmt.setInt(3, conta.getCliente().getIdCliente());
+            stmt.setInt(3, conta.getIdCliente());
 
             stmt.executeUpdate();
 
@@ -38,17 +36,14 @@ public class contaDAO {
             stmt.close();
 
             // Conta Corrente
-            if (conta instanceof contaCorrente) {
-
-                contaCorrente corrente = (contaCorrente) conta;
+            if (conta instanceof contaCorrente corrente) {
 
                 sql = "INSERT INTO CONTACORRENTE (IDCONTACORRENTE, LIMITECREDITO) VALUES (?,?)";
 
                 stmt = conexaoDAO.getConexao().prepareStatement(sql);
-                corrente.gerarLimiteCredito();
-                double limite = corrente.getLimiteCredito();
+
                 stmt.setInt(1, conta.getNumeroConta());
-                stmt.setDouble(2, limite);
+                stmt.setDouble(2, 0);
 
                 stmt.executeUpdate();
 
@@ -56,9 +51,7 @@ public class contaDAO {
             }
 
             // Conta Poupança
-            else if (conta instanceof contaPoupanca) {
-
-                contaPoupanca poupanca = (contaPoupanca) conta;
+            else if (conta instanceof contaPoupanca poupanca) {
 
                 sql = "INSERT INTO CONTAPOUPANCA (idContaPoupanca, taxaRendimento) VALUES (?, ?)";
 
