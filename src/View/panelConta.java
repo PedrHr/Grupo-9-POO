@@ -168,8 +168,8 @@ public class panelConta {
                 double Deposito = Double.parseDouble(campoDepositar.getText());
                 ContaCorrente.depositarValor(Deposito);
 
-                contaCorrenteController controllCorrente = new contaCorrenteController();
-                String mensagemSucess = controllCorrente.inserirDeposito(ContaCorrente);
+                contaCorrenteController controlCorrente = new contaCorrenteController();
+                String mensagemSucess = controlCorrente.inserirDeposito(ContaCorrente);
 
                 JOptionPane.showMessageDialog(null, mensagemSucess);
 

@@ -243,7 +243,6 @@ public class panelRegistro extends JFrame {
                 //REDIRECIONA LOGIN
 
                 dispose();
-
                 SwingUtilities.invokeLater(() -> {
                     panelLogin login = new panelLogin();
                     login.toFront();
