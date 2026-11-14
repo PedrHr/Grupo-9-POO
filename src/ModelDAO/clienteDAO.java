@@ -6,7 +6,7 @@ import ModelDAO.conexaoDAO;
 
 import Model.Cliente;
 
-public class clienteDAO {
+public class clienteDAO implements ClienteRepository{
     public String inserirCliente(Cliente cliente){
 
         String sql = "INSERT INTO CLIENTE (NOME, CPF, ENDERECO, EMAIL, SENHA) VALUES (?,?,?,?,?)";
@@ -27,8 +27,9 @@ public class clienteDAO {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return System.out.println("tudo errado");
+
         }
+        return sql;
     }
 
     public Cliente buscarCliente(String email, String senha){

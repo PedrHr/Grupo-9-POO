@@ -1,20 +1,25 @@
 package Controller;
 import Model.Cliente;
 import ModelDAO.clienteDAO;
+import ModelDAO.ClienteRepository;
 
 public class clienteController {
-    private clienteDAO clienteDAO;
+    private final ClienteRepository clienteRepository;
 
     public clienteController() {
-        clienteDAO = new clienteDAO();
+        this.clienteRepository = new clienteDAO();
+    }
+
+    public clienteController(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
     }
 
     public void inserirCliente(Cliente cliente) {
-       clienteDAO.inserirCliente(cliente);
+       clienteRepository.inserirCliente(cliente);
     }
 
     public Cliente buscarCliente(String emailCliente, String senhaCliente){
-     return clienteDAO.buscarCliente(emailCliente, senhaCliente);
+     return clienteRepository.buscarCliente(emailCliente, senhaCliente);
 
     }
 }
