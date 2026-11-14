@@ -1,107 +1,152 @@
 package View;
 
-import Controller.clienteController;
 import Controller.exceptionsController;
-import Model.Cliente;
 
-import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.*;
 
-import Controller.exceptionsController;
-import Model.Cliente;
-import Controller.clienteController;
+import Controller.transacaoController;
 import Model.Transacao;
+import Model.contaCorrente;
 
 
-public class panelTransacao extends JFrame {
+import static View.panelConta.interfaceConta;
 
-        static private JTextField valor;
-        static private JTextField chaveTransacao;
+public class panelTransacao extends JDialog {
 
-        // Construtor
-        public panelTransacao() {
+    private JTextField txtValor;
+    private JTextField txtOrigem;
+    private JTextField txtDestino;
 
-            setTitle("Realizar Transações");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // Construtor recebendo a janela pai (owner)
+    public panelTransacao(Frame owner, contaCorrente contaC) {
+        super(owner, "Realizar Transação", true); // Modo MODAL ativado
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-            // Painel
-            JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
+        // Painel Principal
+        JPanel painelPrincipal = new JPanel(new BorderLayout(10, 15));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-            // Adiciona margem
-            painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // Painel Central com GridBagLayout (Centralizado)
+        JPanel painelCentral = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(8, 0, 8, 0); // Espaçamento vertical entre os elementos
 
-            // VALOR DEPOSITO
-            JLabel labelValor = new JLabel("Valor:");
-            valor = new JTextField(16);
+        // 1. VALOR
+        JLabel labelValor = new JLabel("Valor:");
+        txtValor = new JTextField(16);
+        JPanel boxValor = criarBoxCampo(labelValor, txtValor);
 
-            // ADICIONAR CHAVE DE TRANSAÇÃO DA CONTA DESTINATÁRIA
-            JLabel labelOrigem = new JLabel("Chave de Transação:");
-            chaveTransacao = new JTextField(16);
-
-            // Adicionar ao painel
-            painel.add(labelValor);
-            painel.add(valor);
-
-            painel.add(labelOrigem);
-            painel.add(chaveTransacao);
+        // 2. ORIGEM
+        JLabel labelOrigem = new JLabel("Origem:");
+        txtOrigem = new JTextField(String.valueOf(contaC.getNumeroConta()));
+        JPanel boxOrigem = criarBoxCampo(labelOrigem, txtOrigem);
 
 
-            // Botões
-            JButton btnEnviar = new JButton("Enviar Transação");
-            JButton btnCancelar = new JButton("Cancelar");
+        // 3. DESTINO
+        JLabel labelDestino = new JLabel("Destino:");
+        txtDestino = new JTextField(16);
+        JPanel boxDestino = criarBoxCampo(labelDestino, txtDestino);
 
-            btnEnviar.addActionListener(e -> {
+        // ADICIONA OS CAMPOS AO PAINEL CENTRAL
+        painelCentral.add(boxValor, gbc);
+        painelCentral.add(boxOrigem, gbc);
+        painelCentral.add(boxDestino, gbc);
 
-                double valorTransacao =  Double.parseDouble(valor.getText().replace(",", "."));
-                long chaveT = Integer.parseInt(chaveTransacao.getText());
-                LocalDateTime dataTransacao = LocalDateTime.now();
+        // BOTÕES ENVIAR E VOLTAR
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        JButton btnEnviar = new JButton("Enviar");
+        JButton btnVoltar = new JButton("Voltar");
 
-                // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
-                if (valor.getText().trim().isEmpty() || chaveTransacao.getText().trim().isEmpty()) {
+        btnEnviar.setPreferredSize(new Dimension(150, 35));
+        btnVoltar.setPreferredSize(new Dimension(150, 35));
 
-                    // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
-                    JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
+        painelBotoes.add(btnEnviar);
+        painelBotoes.add(btnVoltar);
 
-                } else {
+        // AÇÃO DO BOTÃO VOLTAR
+        btnVoltar.addActionListener(e -> dispose());
 
-                    // CRIANDO UM NOVO OBJETO CLIENTE E CHAMANDO O CONTROLLER PARA CADASTRA-LO
-                    //Transacao transacao = new Transacao(valorTransacao, dataTransacao);
-                    //clienteController cadastrarCliente = new clienteController();
-                    //cadastrarCliente.inserirCliente(cliente);
+        // AÇÃO DO BOTÃO ENVIAR
+        btnEnviar.addActionListener(e -> {
 
+
+            String strValor = txtValor.getText().trim();
+            String strOrigem = txtOrigem.getText().trim();
+            String strDestino = txtDestino.getText().trim();
+
+            // VERIFICAÇÃO DE CAMPOS VAZIOS
+            if (strValor.isEmpty() || strOrigem.isEmpty() || strDestino.isEmpty()) {
+                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios(), "Aviso", JOptionPane.WARNING_MESSAGE);
+            } else {
+                try {
+                    double valorTransacao = Double.parseDouble(strValor);
+                    int contaOrigem = Integer.parseInt(strOrigem);
+                    long contaDestino = Long.parseLong(strDestino);
+
+                    // MOMENTO EM QUE A TRANSAÇÃO FOI EFETUADA
+                    LocalDateTime dataTransacao = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                    String dataFormatada = dataTransacao.format(formatter);
+
+                    if (contaC.getSaldoAtual() >= valorTransacao) {
+
+                        Transacao transacao = new Transacao(valorTransacao, contaOrigem, contaDestino, dataTransacao);
+                        transacaoController transacaoController = new transacaoController();
+                        transacaoController.adicionarTransacao(transacao);
+
+                        JOptionPane.showMessageDialog(this, transacao.gerarRelatorio());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Saldo insuficiente");
+                    }
+
+                    dispose(); // Fecha o diálogo após o envio
+
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "Valor " + valorTransacao + " enviado com sucesso!"
+                            "Por favor, insira números válidos nos campos de Valor, Origem e Destino.",
+                            "Erro de Formatação",
+                            JOptionPane.ERROR_MESSAGE
                     );
-
                 }
-            });
+            }
+        });
 
-            btnCancelar.addActionListener(e -> dispose());
+        painelPrincipal.add(painelCentral, BorderLayout.CENTER);
+        painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
-            painel.add(btnEnviar);
-            painel.add(btnCancelar);
+        add(painelPrincipal);
 
-            add(painel);
-
-            // Definir tamanho fixo
-            setSize(500, 400);
-
-            // Centralizar a janela
-            setLocationRelativeTo(null);
-
-            setVisible(true);
-
-
-        }
-        public static void main(String[] args) {
-
-            new View.panelTransacao();
-
-
-        }
-
-
+        setSize(480, 520);
+        setLocationRelativeTo(owner);
     }
+
+    // Método auxiliar para criar campos centralizados na vertical
+    private JPanel criarBoxCampo(JLabel label, JComponent campo) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        campo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(campo);
+
+        return panel;
+    }
+
+    // Método estático para ser chamado na panelConta
+    public static void exibir(JFrame owner, contaCorrente contaC) {
+        panelTransacao dialog = new panelTransacao(owner, contaC);
+        dialog.setVisible(true);
+    }
+
+}

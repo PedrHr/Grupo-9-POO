@@ -1,127 +1,303 @@
 package View;
 
-import Controller.exceptionsController;
-import Model.Cliente;
 import Controller.clienteController;
-import javax.swing.*;
+import Controller.contaCorrenteController;
+import Controller.contaPoupancaController;
+import Model.Cliente;
+import Model.Conta;
+import Model.contaCorrente;
+import Model.contaPoupanca;
+
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 public class panelRegistro extends JFrame {
 
-    static private JTextField nome;
-    static private JTextField cpf;
-    static private JTextField endereco;
-    static private JTextField email;
-    static private JPasswordField senha;
+    private JTextField nome;
+    private JTextField cpf;
+    private JTextField endereco;
+    private JTextField email;
+    private JPasswordField senha;
 
+    //avisos de erro
+    private JLabel erroNome;
+    private JLabel erroCpf;
+    private JLabel erroEndereco;
+    private JLabel erroEmail;
+    private JLabel erroSenha;
 
-    // Construtor
+    //radio buttons da conta
+    private JRadioButton radioCorrente;
+    private JRadioButton radioPoupanca;
+    private ButtonGroup grupoConta;
+
     public panelRegistro() {
 
         setTitle("Registro");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Painel
-        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 15));
+        //painel principal
+        JPanel painelPrincipal = new JPanel(new BorderLayout(10, 15));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Adiciona margem
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        //titulo da tela
+        JLabel tituloCadastro = new JLabel("CADASTRO", SwingConstants.CENTER);
+        tituloCadastro.setFont(new Font("Arial", Font.BOLD, 32));
+        tituloCadastro.setForeground(new Color(20, 55, 100));
 
-        // NOME
+        //grade dos campos
+        JPanel painelCampos = new JPanel(new GridLayout(5, 2, 10, 10));
+
+        //campo nome
         JLabel labelNome = new JLabel("Nome:");
         nome = new JTextField(16);
+        erroNome = criarLabelErro();
+        JPanel boxNome = criarBoxCampo(nome, erroNome);
+        painelCampos.add(labelNome);
+        painelCampos.add(boxNome);
 
-        // CPF
+        //campo cpf
         JLabel labelCpf = new JLabel("CPF:");
         cpf = new JTextField(16);
+        erroCpf = criarLabelErro();
+        JPanel boxCpf = criarBoxCampo(cpf, erroCpf);
+        painelCampos.add(labelCpf);
+        painelCampos.add(boxCpf);
 
-        // ENDEREÇO
+        //campo endereco
         JLabel labelEndereco = new JLabel("Endereço:");
         endereco = new JTextField(16);
+        erroEndereco = criarLabelErro();
+        JPanel boxEndereco = criarBoxCampo(endereco, erroEndereco);
+        painelCampos.add(labelEndereco);
+        painelCampos.add(boxEndereco);
 
-        // EMAIL
+        //campo email
         JLabel labelEmail = new JLabel("E-mail:");
         email = new JTextField(16);
+        erroEmail = criarLabelErro();
+        JPanel boxEmail = criarBoxCampo(email, erroEmail);
+        painelCampos.add(labelEmail);
+        painelCampos.add(boxEmail);
 
-        // SENHA
+        //campo senha
         JLabel labelSenha = new JLabel("Senha:");
-        senha = new JPasswordField(16);
+        senha = new JPasswordField(12);
 
-        // Adicionar ao painel
-        painel.add(labelNome);
-        painel.add(nome);
+        char echoCharPadrao = senha.getEchoChar();
+        JToggleButton btnMostrarSenha = new JToggleButton("👁");
+        btnMostrarSenha.setToolTipText("Mostrar/Ocultar Senha");
+        btnMostrarSenha.setFocusable(false);
+        btnMostrarSenha.setMargin(new Insets(2, 5, 2, 5));
 
-        painel.add(labelCpf);
-        painel.add(cpf);
-
-        painel.add(labelEndereco);
-        painel.add(endereco);
-
-        painel.add(labelEmail);
-        painel.add(email);
-
-        painel.add(labelSenha);
-        painel.add(senha);
-
-        // Botões
-        JButton btnCadastrar = new JButton("Cadastrar");
-        JButton btnCancelar = new JButton("Cancelar");
-
-
-        btnCadastrar.addActionListener(e -> {
-
-                    String nomeCliente = nome.getText();
-                    String cpfCliente = cpf.getText();
-                    String enderecoCliente = endereco.getText();
-                    String emailCliente = email.getText();
-                    String senhaCliente = new String(senha.getPassword());
-
-                // VERFICANDO SE OS CAMPOS ESTÃO PREENCHIDOS
-            if (nomeCliente.trim().isEmpty() || cpfCliente.trim().isEmpty() || enderecoCliente.trim().isEmpty() || emailCliente.trim().isEmpty() || senhaCliente.trim().isEmpty()) {
-
-                // CHAAMANDO A CLASSE DE EXCEÇÕES DE CAMPOS VAZIOS COM SUA MENSAGEM
-                JOptionPane.showMessageDialog(this, exceptionsController.camposVazios());
-
+        btnMostrarSenha.addActionListener(e -> {
+            if (btnMostrarSenha.isSelected()) {
+                senha.setEchoChar((char) 0);
             } else {
-
-                // CRIANDO UM NOVO OBJETO CLIENTE E CHAMANDO O CONTROLLER PARA CADASTRA-LO
-                Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
-                clienteController cadastrarCliente = new clienteController();
-                cadastrarCliente.inserirCliente(cliente);
-
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Cliente " + nomeCliente + " cadastrado com sucesso!"
-                );
-
+                senha.setEchoChar(echoCharPadrao);
             }
         });
 
+        JPanel painelSenhaInput = new JPanel(new BorderLayout(5, 0));
+        painelSenhaInput.add(senha, BorderLayout.CENTER);
+        painelSenhaInput.add(btnMostrarSenha, BorderLayout.EAST);
+
+        erroSenha = criarLabelErro();
+        JPanel boxSenha = criarBoxCampo(painelSenhaInput, erroSenha);
+        painelCampos.add(labelSenha);
+        painelCampos.add(boxSenha);
+
+        //painel superior
+        JPanel painelNorte = new JPanel(new BorderLayout(0, 15));
+        painelNorte.add(tituloCadastro, BorderLayout.NORTH);
+        painelNorte.add(painelCampos, BorderLayout.SOUTH);
+
+        //tipo de conta
+        radioCorrente = new JRadioButton("Conta Corrente", true);
+        radioPoupanca = new JRadioButton("Conta Poupança");
+
+        grupoConta = new ButtonGroup();
+        grupoConta.add(radioCorrente);
+        grupoConta.add(radioPoupanca);
+
+        JPanel painelRadio = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        painelRadio.add(radioCorrente);
+        painelRadio.add(radioPoupanca);
+
+        //botoes
+        JPanel painelBotoes = new JPanel(new GridLayout(1, 2, 10, 0));
+        JButton btnCadastrar = new JButton("Cadastrar");
+        JButton btnCancelar = new JButton("Cancelar");
+
+        painelBotoes.add(btnCadastrar);
+        painelBotoes.add(btnCancelar);
+
+        //link de login
+        JLabel lblLogin = new JLabel("<html><u>Já possui uma conta? Faça login aqui.</u></html>", SwingConstants.CENTER);
+        lblLogin.setForeground(new Color(0, 102, 204));
+        lblLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        lblLogin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+
+                SwingUtilities.invokeLater(() -> {
+                    panelLogin login = new panelLogin();
+                    login.toFront();
+                    login.requestFocus();
+                });
+            }
+        });
+
+        //painel inferior
+        JPanel painelSul = new JPanel(new BorderLayout(0, 10));
+        painelSul.add(painelRadio, BorderLayout.NORTH);
+        painelSul.add(painelBotoes, BorderLayout.CENTER);
+        painelSul.add(lblLogin, BorderLayout.SOUTH);
+
+        //monta a tela
+        painelPrincipal.add(painelNorte, BorderLayout.NORTH);
+        painelPrincipal.add(painelSul, BorderLayout.SOUTH);
+
+        //acao do botao cadastrar
+        btnCadastrar.addActionListener(e -> {
+
+            limparErros();
+
+            String nomeCliente = nome.getText().trim();
+            String cpfCliente = cpf.getText().trim();
+            String enderecoCliente = endereco.getText().trim();
+            String emailCliente = email.getText().trim();
+            String senhaCliente = new String(senha.getPassword()).trim();
+
+            boolean temErro = false;
+
+            if (nomeCliente.isEmpty()) {
+                erroNome.setText("Preencha o nome");
+                temErro = true;
+            } else if (nomeCliente.matches(".*\\d.*")) {
+                erroNome.setText("O nome não pode conter números");
+                temErro = true;
+            } else if (nomeCliente.split("\\s+").length < 2) {
+                erroNome.setText("Informe ao menos nome e sobrenome");
+                temErro = true;
+            }
+
+            if (cpfCliente.isEmpty()) {
+                erroCpf.setText("Preencha o CPF");
+                temErro = true;
+            } else if (cpfCliente.matches(".*[a-zA-Z].*")) {
+                erroCpf.setText("O CPF não pode conter letras");
+                temErro = true;
+            } else {
+                String cpfApenasNumeros = cpfCliente.replaceAll("[^0-9]", "");
+                if (cpfApenasNumeros.length() != 11) {
+                    erroCpf.setText("O CPF deve conter 11 dígitos");
+                    temErro = true;
+                }
+            }
+
+            if (enderecoCliente.isEmpty()) {
+                erroEndereco.setText("Preencha o endereço");
+                temErro = true;
+            }
+
+            if (emailCliente.isEmpty()) {
+                erroEmail.setText("Preencha o e-mail");
+                temErro = true;
+            }
+
+            if (senhaCliente.isEmpty()) {
+                erroSenha.setText("Preencha a senha");
+                temErro = true;
+            }
+
+            if (temErro) {
+                return;
+            }
+
+            try {
+
+                //REGISTRA O CLIENTE
+                Cliente cliente = new Cliente(nomeCliente, cpfCliente, enderecoCliente, emailCliente, senhaCliente);
+                clienteController controlCliente = new clienteController();
+                controlCliente.inserirCliente(cliente);
+
+                // CRIAÇÃO DAS CONTAS
+                if (radioCorrente.isSelected()) {
+                    contaCorrente corrente = new contaCorrente(Conta.TipoConta.CORRENTE, cliente);
+                    contaCorrenteController controlCorrente = new contaCorrenteController();
+                    controlCorrente.inserirConta(corrente);
+                    JOptionPane.showMessageDialog(null, "Conta corrente registrada com sucesso");
+                } else {
+                    contaPoupancaController contaPoupanca = new contaPoupancaController();
+                    contaPoupanca poupanca = new contaPoupanca(Conta.TipoConta.POUPANCA, cliente);
+                    contaPoupancaController inserirPoupanca = new contaPoupancaController();
+                    inserirPoupanca.inserirConta(poupanca);
+                    JOptionPane.showMessageDialog(null, "Conta registrada com sucesso");
+                }
+
+                //REDIRECIONA LOGIN
+
+                dispose();
+                SwingUtilities.invokeLater(() -> {
+                    panelLogin login = new panelLogin();
+                    login.toFront();
+                    login.requestFocus();
+                });
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erro ao realizar cadastro: " + ex.getMessage());
+            }
+        });
+
+        //acao do botao cancelar
         btnCancelar.addActionListener(e -> dispose());
 
-        painel.add(btnCadastrar);
-        painel.add(btnCancelar);
+        add(painelPrincipal);
 
-        add(painel);
-
-        // Definir tamanho fixo
-        setSize(500, 400);
-
-        // Centralizar a janela
+        setSize(500, 570);
         setLocationRelativeTo(null);
-
         setVisible(true);
-
-
     }
+
+    //cria label de erro
+    private JLabel criarLabelErro() {
+        JLabel label = new JLabel(" ");
+        label.setForeground(Color.RED);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        return label;
+    }
+
+    //junta componentes do campo
+    private JPanel criarBoxCampo(JComponent campo, JLabel labelErro) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        campo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelErro.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        panel.add(campo);
+        panel.add(labelErro);
+
+        return panel;
+    }
+
+    //limpa mensagens de erro
+    private void limparErros() {
+        erroNome.setText(" ");
+        erroCpf.setText(" ");
+        erroEndereco.setText(" ");
+        erroEmail.setText(" ");
+        erroSenha.setText(" ");
+    }
+
     public static void main(String[] args) {
 
         new panelRegistro();
-
-
-
-
     }
-
-
 }

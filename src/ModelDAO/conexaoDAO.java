@@ -1,10 +1,12 @@
 package ModelDAO;
+
+import javax.swing.*;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class conexaoDAO {
-    private static final String url = "jdbc:mysql://localhost:3306/contaBancaria";
+    private static final String url = "jdbc:mysql://localhost:3306/systemBank";
     private static final String user = "root";
     private static final String password = "";
     private static Connection conn;
@@ -13,14 +15,14 @@ public class conexaoDAO {
         try {
             if (conn == null) {
                 conn = DriverManager.getConnection(url, user, password);
-                System.out.println("tudo certo");
+                JOptionPane.showMessageDialog(null, "Base de dados encontrada com sucesso");
                 return conn;
             } else {
                 return conn;
             }
-        } catch (SQLException excecao){
+        } catch (SQLException excecao) {
             excecao.printStackTrace();
-            System.out.println("tudo errado");
+            JOptionPane.showMessageDialog(null, "Nao foi possivel estabelcer conexao com o Banco de Dados");
             return null;
         }
 
