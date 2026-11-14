@@ -3,11 +3,8 @@ package View;
 import Controller.contaCorrenteController;
 import Model.Cliente;
 import Model.contaCorrente;
-
 import java.awt.*;
 import javax.swing.*;
-
-import static View.panelExtrato.interfaceExtrato;
 
 public class panelConta {
 
@@ -26,7 +23,7 @@ public class panelConta {
             JLabel titulo = new JLabel("MINHA CONTA");
             titulo.setBounds(30, 20, 400, 35);
             titulo.setFont(new Font("Arial", Font.BOLD, 24));
-            titulo.setForeground(new Color(30, 60, 100));
+            titulo.setForeground(new Color(159, 0, 166));
             painel.add(titulo);
 
             JLabel labelUsuario = new JLabel("Usuário:");
